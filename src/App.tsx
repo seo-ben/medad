@@ -58,35 +58,23 @@ export const App: React.FC = () => {
           onOpenPreApproval={(prodId) => handleOpenPreApproval({ productId: prodId })}
         />
 
-        {/* 3. Finance Digitale : décaissez et remboursez directement sur votre téléphone */}
-        <ScrollReveal>
-          <MobileMoneySection />
-        </ScrollReveal>
+        {/* 3. Finance Digitale : décaissez et remboursez directement sur votre téléphone (Texte de gauche, Téléphone de droite) */}
+        <MobileMoneySection />
 
-        {/* 4. Agences & Points de Service */}
-        <ScrollReveal>
-          <NetworkMap />
-        </ScrollReveal>
+        {/* 4. Agences & Points de Service (Carte & Infos terrain) */}
+        <NetworkMap />
 
         {/* 5. À Propos (Bâtir l'avenir économique des entrepreneurs du Togo) */}
-        <ScrollReveal>
-          <AboutSection onOpenPreApproval={() => handleOpenPreApproval()} />
-        </ScrollReveal>
+        <AboutSection onOpenPreApproval={() => handleOpenPreApproval()} />
 
-        {/* 6. Témoignages & Preuve Sociale */}
-        <ScrollReveal>
-          <Testimonials />
-        </ScrollReveal>
+        {/* 6. Témoignages & Preuve Sociale (Marquee infini) */}
+        <Testimonials />
 
         {/* 7. Foire Aux Questions (FAQ) */}
-        <ScrollReveal>
-          <FaqSection />
-        </ScrollReveal>
+        <FaqSection />
 
-        {/* 8. Contact & Siège */}
-        <ScrollReveal>
-          <ContactSection />
-        </ScrollReveal>
+        {/* 8. Contact & Siège (Coordonnées à gauche, Formulaire direct à droite) */}
+        <ContactSection />
       </main>
 
       {/* Footer Institutionnel & Mentions Légales */}

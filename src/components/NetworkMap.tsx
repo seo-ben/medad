@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { ScrollReveal } from './ScrollReveal';
 
 interface AgencySocial {
   id: string;
@@ -416,54 +417,57 @@ export const NetworkMap: React.FC = () => {
 
       <div className="snm-container">
         
-        {/* EN-TÊTE ÉPURÉ ET IMPACTANT */}
-        <div style={{ maxWidth: '780px', marginBottom: '2.5rem' }}>
-          <h2 
-            style={{ 
-              fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",
-              fontSize: 'clamp(2.1rem, 3.8vw, 3rem)', 
-              fontWeight: 800,
-              color: '#0f241d', 
-              lineHeight: 1.15,
-              letterSpacing: '-0.03em',
-              marginBottom: '0.85rem' 
-            }}
-          >
-            Des agences et agents au plus près de vos commerces
-          </h2>
-          <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.65, margin: 0 }}>
-            Sélectionnez votre quartier ci-dessous pour repérer votre agence physique sur la carte ou demander la visite d'un conseiller à votre commerce.
-          </p>
-        </div>
+        <ScrollReveal direction="down" distance={30}>
+          {/* EN-TÊTE ÉPURÉ ET IMPACTANT */}
+          <div style={{ maxWidth: '780px', marginBottom: '2.5rem' }}>
+            <h2 
+              style={{ 
+                fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",
+                fontSize: 'clamp(2.1rem, 3.8vw, 3rem)', 
+                fontWeight: 800,
+                color: '#0f241d', 
+                lineHeight: 1.15,
+                letterSpacing: '-0.03em',
+                marginBottom: '0.85rem' 
+              }}
+            >
+              Des agences et agents au plus près de vos commerces
+            </h2>
+            <p style={{ fontSize: '1.05rem', color: '#475569', lineHeight: 1.65, margin: 0 }}>
+              Sélectionnez votre quartier ci-dessous pour repérer votre agence physique sur la carte ou demander la visite d'un conseiller à votre commerce.
+            </p>
+          </div>
 
-        {/* 1. SÉLECTEUR HORIZONTAL DES 7 ZONES (ACCÈS RAPIDE D'UN CLIC) */}
-        <div className="snm-tabs-bar">
-          {SOCIAL_AGENCIES.map((agency) => {
-            const isActive = selectedAgency.id === agency.id;
-            return (
-              <button
-                key={agency.id}
-                type="button"
-                className={`snm-tab-btn ${isActive ? 'active' : ''}`}
-                onClick={() => setSelectedAgency(agency)}
-              >
-                {agency.type === 'headquarter' ? (
-                  <Building2 size={16} />
-                ) : (
-                  <Store size={16} />
-                )}
-                <span>{agency.district}</span>
-                <span className="snm-tab-tag">{agency.tag}</span>
-              </button>
-            );
-          })}
-        </div>
+          {/* 1. SÉLECTEUR HORIZONTAL DES 7 ZONES (ACCÈS RAPIDE D'UN CLIC) */}
+          <div className="snm-tabs-bar">
+            {SOCIAL_AGENCIES.map((agency) => {
+              const isActive = selectedAgency.id === agency.id;
+              return (
+                <button
+                  key={agency.id}
+                  type="button"
+                  className={`snm-tab-btn ${isActive ? 'active' : ''}`}
+                  onClick={() => setSelectedAgency(agency)}
+                >
+                  {agency.type === 'headquarter' ? (
+                    <Building2 size={16} />
+                  ) : (
+                    <Store size={16} />
+                  )}
+                  <span>{agency.district}</span>
+                  <span className="snm-tab-tag">{agency.tag}</span>
+                </button>
+              );
+            })}
+          </div>
+        </ScrollReveal>
 
         {/* 2. LE DASHBOARD UNIFIÉ : DÉTAILS SOCIAUX À GAUCHE & VRAIE CARTE À DROITE */}
         <div className="snm-dashboard-grid">
           
           {/* COLONNE GAUCHE : TOUS LES DÉTAILS D'ACCÈS TERRAIN & CONTACTS */}
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1.5rem' }}>
+          <ScrollReveal direction="left" distance={60} duration={0.85}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '1.5rem' }}>
             
             <div>
               <h3 
@@ -668,9 +672,11 @@ export const NetworkMap: React.FC = () => {
             </div>
 
           </div>
+          </ScrollReveal>
 
           {/* COLONNE DROITE : CARTE INTERACTIVE AVEC LE VRAI POINT DE LOCALISATION DE L'AGENCE */}
-          <div className="snm-map-container">
+          <ScrollReveal direction="right" distance={60} duration={0.85} delay={100} style={{ height: '100%' }}>
+            <div className="snm-map-container">
             
             {/* Barre de contrôle supérieure de la carte */}
             <div 
@@ -753,6 +759,7 @@ export const NetworkMap: React.FC = () => {
             </div>
 
           </div>
+          </ScrollReveal>
 
         </div>
 

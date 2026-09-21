@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-interface ScrollRevealProps {
+export interface ScrollRevealProps {
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
   threshold?: number;
   delay?: number;
-  direction?: 'up' | 'down' | 'fade';
+  duration?: number;
+  direction?: 'up' | 'down' | 'left' | 'right' | 'fade' | 'zoom';
   distance?: number;
+  rootMargin?: string;
 }
 
 export const ScrollReveal: React.FC<ScrollRevealProps> = ({
@@ -16,8 +18,10 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   style = {},
   threshold = 0.08,
   delay = 0,
+  duration = 0.85,
   direction = 'up',
-  distance = 36,
+  distance = 50,
+  rootMargin = '0px 0px -40px 0px',
 }) => {
   const domRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -33,17 +37,17 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Animation bidirectionnelle : se déclenche en montant ET en descendant
+        // Animation bidirectionnelle : se déclenche en descendant ET en montant
         if (entry.isIntersecting) {
           setIsVisible(true);
         } else {
-          // Se réinitialise quand l'élément quitte l'écran pour réanimer au retour
+          // Se réinitialise dès qu'il quitte l'écran pour rejouer l'effet au scroll retour
           setIsVisible(false);
         }
       },
       {
         threshold,
-        rootMargin: '0px 0px -40px 0px',
+        rootMargin,
       }
     );
 
@@ -52,23 +56,34 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     return () => {
       observer.disconnect();
     };
-  }, [threshold]);
+  }, [threshold, rootMargin]);
 
-  const getTransform = () => {
-    if (isVisible) return 'translate3d(0, 0, 0) scale(1)';
-    if (direction === 'fade') return 'scale(0.99)';
-    if (direction === 'down') return `translate3d(0, -${distance}px, 0) scale(0.985)`;
-    return `translate3d(0, ${distance}px, 0) scale(0.985)`;
+  const getHiddenTransform = () => {
+    switch (direction) {
+      case 'left':
+        return `translate3d(-${distance}px, 0, 0)`;
+      case 'right':
+        return `translate3d(${distance}px, 0, 0)`;
+      case 'down':
+        return `translate3d(0, -${distance}px, 0) scale(0.985)`;
+      case 'up':
+        return `translate3d(0, ${distance}px, 0) scale(0.985)`;
+      case 'zoom':
+        return 'scale(0.92)';
+      case 'fade':
+      default:
+        return 'scale(0.99)';
+    }
   };
 
   return (
     <div
       ref={domRef}
-      className={`scroll-reveal-container ${isVisible ? 'is-visible' : ''} ${className}`}
+      className={`scroll-reveal-item ${isVisible ? 'is-visible' : ''} ${className}`}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: getTransform(),
-        transition: 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+        transform: isVisible ? 'translate3d(0, 0, 0) scale(1)' : getHiddenTransform(),
+        transition: `opacity ${duration}s cubic-bezier(0.16, 1, 0.3, 1), transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`,
         transitionDelay: isVisible ? `${delay}ms` : '0ms',
         willChange: 'opacity, transform',
         ...style,

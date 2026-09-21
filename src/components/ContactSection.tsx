@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Phone, MapPin, Clock, MessageSquare, Send, CheckCircle2, ArrowRight } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 
 const SERVICE_LABELS: Record<string, string> = {
   'credit-tresorerie': 'Microcrédit Trésorerie & Stocks (Commerçants)',
@@ -59,31 +60,33 @@ export const ContactSection: React.FC = () => {
       <div className="container" style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 1.5rem' }}>
         
         {/* Titre Principal sans aucun label au-dessus */}
-        <div style={{ maxWidth: '750px', marginBottom: '3.5rem' }}>
-          <h2
-            style={{
-              fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",
-              fontSize: 'clamp(2.1rem, 4vw, 3.2rem)',
-              fontWeight: 800,
-              color: '#0f241d',
-              lineHeight: 1.15,
-              letterSpacing: '-0.03em',
-              marginBottom: '1rem'
-            }}
-          >
-            Parlons de votre projet dès aujourd'hui
-          </h2>
-          <p
-            style={{
-              fontSize: 'clamp(1.05rem, 1.25vw, 1.2rem)',
-              color: '#475569',
-              lineHeight: 1.7,
-              margin: 0
-            }}
-          >
-            Besoin d’un financement rapide, d’un renseignement sur la tontine ou d’un rendez-vous sur votre lieu de travail ? Nos agents vous répondent immédiatement par téléphone, WhatsApp ou directement en agence.
-          </p>
-        </div>
+        <ScrollReveal direction="down" distance={25}>
+          <div style={{ maxWidth: '750px', marginBottom: '3.5rem' }}>
+            <h2
+              style={{
+                fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",
+                fontSize: 'clamp(2.1rem, 4vw, 3.2rem)',
+                fontWeight: 800,
+                color: '#0f241d',
+                lineHeight: 1.15,
+                letterSpacing: '-0.03em',
+                marginBottom: '1rem'
+              }}
+            >
+              Parlons de votre projet dès aujourd'hui
+            </h2>
+            <p
+              style={{
+                fontSize: 'clamp(1.05rem, 1.25vw, 1.2rem)',
+                color: '#475569',
+                lineHeight: 1.7,
+                margin: 0
+              }}
+            >
+              Besoin d’un financement rapide, d’un renseignement sur la tontine ou d’un rendez-vous sur votre lieu de travail ? Nos agents vous répondent immédiatement par téléphone, WhatsApp ou directement en agence.
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* Grille : Coordonnées Officielles (Gauche) + Formulaire Rapide (Droite) */}
         <div
@@ -95,7 +98,8 @@ export const ContactSection: React.FC = () => {
           }}
         >
           {/* Colonne Gauche : Coordonnées & Horaires */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+          <ScrollReveal direction="left" distance={50} duration={0.85}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
             
             {/* Carte Siège Social */}
             <div
@@ -223,17 +227,19 @@ export const ContactSection: React.FC = () => {
             </a>
 
           </div>
+          </ScrollReveal>
 
           {/* Colonne Droite : Formulaire de Message Direct */}
-          <div
-            style={{
-              backgroundColor: '#ffffff',
-              borderRadius: '24px',
-              padding: '2.5rem',
-              border: '1px solid #e2e8f0',
-              boxShadow: '0 10px 30px -8px rgba(15, 36, 29, 0.08)'
-            }}
-          >
+          <ScrollReveal direction="right" distance={50} duration={0.85} delay={100}>
+            <div
+              style={{
+                backgroundColor: '#ffffff',
+                borderRadius: '24px',
+                padding: '2.5rem',
+                border: '1px solid #e2e8f0',
+                boxShadow: '0 10px 30px -8px rgba(15, 36, 29, 0.08)'
+              }}
+            >
             <h3
               style={{
                 fontFamily: "'Bricolage Grotesque', sans-serif",
@@ -474,6 +480,7 @@ export const ContactSection: React.FC = () => {
               </form>
             )}
           </div>
+          </ScrollReveal>
         </div>
 
       </div>

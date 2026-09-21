@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { TESTIMONIALS, type Testimonial } from '../data/content';
 import { Quote, MapPin, TrendingUp, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 
 export const Testimonials: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
@@ -122,30 +123,33 @@ export const Testimonials: React.FC = () => {
         }
       `}</style>
 
-      <div className="testimonials-header">
-        <h2 style={{
-          fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",
-          fontSize: 'clamp(2rem, 3.8vw, 3rem)',
-          fontWeight: 800,
-          color: '#0f241d',
-          lineHeight: 1.2,
-          letterSpacing: '-0.025em',
-          marginBottom: '1rem'
-        }}>
-          Ils développent leurs activités avec Medad Microfinance
-        </h2>
+      <ScrollReveal direction="down" distance={25} duration={0.8}>
+        <div className="testimonials-header">
+          <h2 style={{
+            fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",
+            fontSize: 'clamp(2rem, 3.8vw, 3rem)',
+            fontWeight: 800,
+            color: '#0f241d',
+            lineHeight: 1.2,
+            letterSpacing: '-0.025em',
+            marginBottom: '1rem'
+          }}>
+            Ils développent leurs activités avec Medad Microfinance
+          </h2>
 
-        <p style={{ fontSize: '1.05rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
-          Découvrez les retours concrets de nos membres à travers les 7 communes et marchés du Grand Lomé.
-        </p>
-      </div>
+          <p style={{ fontSize: '1.05rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
+            Découvrez les retours concrets de nos membres à travers les 7 communes et marchés du Grand Lomé.
+          </p>
+        </div>
+      </ScrollReveal>
 
       {/* Carrousel infini */}
-      <div 
-        className="testimonials-track-container"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
+      <ScrollReveal direction="up" distance={35} delay={120} duration={0.85}>
+        <div 
+          className="testimonials-track-container"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
         <div className={`testimonials-track ${isPaused ? 'paused' : ''}`} ref={scrollRef}>
           {duplicatedTestimonials.map((item: Testimonial, idx: number) => (
             <div key={`${item.name}-${idx}`} className="testimonial-card">
@@ -280,6 +284,7 @@ export const Testimonials: React.FC = () => {
           <ChevronRight size={20} />
         </button>
       </div>
+      </ScrollReveal>
     </section>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Minus, Search, MessageSquare, PhoneCall, HelpCircle } from 'lucide-react';
+import { ScrollReveal } from './ScrollReveal';
 
 interface FaqItem {
   id: string;
@@ -330,99 +331,105 @@ export const FaqSection: React.FC = () => {
       <div className="faq-wrap">
         
         {/* Titre & Sous-titre */}
-        <div className="faq-header">
-          <h2 className="faq-title">Trouvez solution à vos questions</h2>
-          <p className="faq-subtitle">
-            Tout ce que vous devez savoir sur nos offres de crédit, notre tontine sécurisée et nos services financiers à Lomé.
-          </p>
+        <ScrollReveal direction="down" distance={25} duration={0.8}>
+          <div className="faq-header">
+            <h2 className="faq-title">Trouvez solution à vos questions</h2>
+            <p className="faq-subtitle">
+              Tout ce que vous devez savoir sur nos offres de crédit, notre tontine sécurisée et nos services financiers à Lomé.
+            </p>
 
-          {/* Recherche rapide */}
-          <div className="faq-search-box">
-            <Search className="faq-search-icon" size={18} />
-            <input
-              type="text"
-              className="faq-search-input"
-              placeholder="Posez une question (ex: documents, délai, tontine, taux...)"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              aria-label="Rechercher une question"
-            />
-          </div>
+            {/* Recherche rapide */}
+            <div className="faq-search-box">
+              <Search className="faq-search-icon" size={18} />
+              <input
+                type="text"
+                className="faq-search-input"
+                placeholder="Posez une question (ex: documents, délai, tontine, taux...)"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Rechercher une question"
+              />
+            </div>
 
-          {/* Filtres par thématique */}
-          <div className="faq-filter-list" role="tablist">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                type="button"
-                className={`faq-filter-chip ${selectedCategory === cat.id ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(cat.id)}
-              >
-                {cat.label}
-              </button>
-            ))}
+            {/* Filtres par thématique */}
+            <div className="faq-filter-list" role="tablist">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  className={`faq-filter-chip ${selectedCategory === cat.id ? 'active' : ''}`}
+                  onClick={() => setSelectedCategory(cat.id)}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Liste Accordéon avec bordures douces et sans cartes */}
-        <div className="faq-accordion-list">
-          {filteredFaqs.length > 0 ? (
-            filteredFaqs.map((faq) => {
-              const isOpen = !!openItems[faq.id];
-              return (
-                <div key={faq.id} className={`faq-row ${isOpen ? 'is-open' : ''}`}>
-                  <button
-                    type="button"
-                    className="faq-row-trigger"
-                    onClick={() => toggleItem(faq.id)}
-                    aria-expanded={isOpen}
-                  >
-                    <span className="faq-question">{faq.question}</span>
-                    <span className="faq-icon-btn">
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
-                  </button>
-                  
-                  {isOpen && (
-                    <div className="faq-answer">
-                      {faq.answer}
-                    </div>
-                  )}
-                </div>
-              );
-            })
-          ) : (
-            <div style={{ textAlign: 'center', padding: '3rem 1rem', color: '#64748b' }}>
-              <HelpCircle size={36} style={{ margin: '0 auto 0.75rem auto', color: '#94a3b8' }} />
-              <p style={{ margin: 0, fontSize: '1rem' }}>
-                Aucune question ne correspond à votre recherche « <strong>{searchQuery}</strong> ».
-              </p>
-            </div>
-          )}
-        </div>
+        <ScrollReveal direction="up" distance={35} delay={100} duration={0.85}>
+          <div className="faq-accordion-list">
+            {filteredFaqs.length > 0 ? (
+              filteredFaqs.map((faq) => {
+                const isOpen = !!openItems[faq.id];
+                return (
+                  <div key={faq.id} className={`faq-row ${isOpen ? 'is-open' : ''}`}>
+                    <button
+                      type="button"
+                      className="faq-row-trigger"
+                      onClick={() => toggleItem(faq.id)}
+                      aria-expanded={isOpen}
+                    >
+                      <span className="faq-question">{faq.question}</span>
+                      <span className="faq-icon-btn">
+                        {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                      </span>
+                    </button>
+                    
+                    {isOpen && (
+                      <div className="faq-answer">
+                        {faq.answer}
+                      </div>
+                    )}
+                  </div>
+                );
+              })
+            ) : (
+              <div style={{ textAlign: 'center', padding: '3rem 1rem', color: '#64748b' }}>
+                <HelpCircle size={36} style={{ margin: '0 auto 0.75rem auto', color: '#94a3b8' }} />
+                <p style={{ margin: 0, fontSize: '1rem' }}>
+                  Aucune question ne correspond à votre recherche « <strong>{searchQuery}</strong> ».
+                </p>
+              </div>
+            )}
+          </div>
+        </ScrollReveal>
 
         {/* Section contact direct en dessous */}
-        <div className="faq-support">
-          <h3 className="faq-support-title">Vous ne trouvez pas votre réponse ?</h3>
-          <p className="faq-support-text">
-            Nos agents de crédit et conseillers clientèle sont à votre écoute pour vous renseigner sans engagement.
-          </p>
-          <div className="faq-support-actions">
-            <a
-              href="https://wa.me/22897317825?text=Bonjour%20Medad,%20j%27ai%20une%20question%20sur%20vos%20services"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="faq-btn-wa"
-            >
-              <MessageSquare size={17} />
-              <span>Poser ma question sur WhatsApp</span>
-            </a>
-            <a href="tel:+22897317825" className="faq-btn-tel">
-              <PhoneCall size={17} />
-              <span>Appeler le +228 97 31 78 25</span>
-            </a>
+        <ScrollReveal direction="up" distance={30} delay={150} duration={0.85}>
+          <div className="faq-support">
+            <h3 className="faq-support-title">Vous ne trouvez pas votre réponse ?</h3>
+            <p className="faq-support-text">
+              Nos agents de crédit et conseillers clientèle sont à votre écoute pour vous renseigner sans engagement.
+            </p>
+            <div className="faq-support-actions">
+              <a
+                href="https://wa.me/22897317825?text=Bonjour%20Medad,%20j%27ai%20une%20question%20sur%20vos%20services"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="faq-btn-wa"
+              >
+                <MessageSquare size={17} />
+                <span>Poser ma question sur WhatsApp</span>
+              </a>
+              <a href="tel:+22897317825" className="faq-btn-tel">
+                <PhoneCall size={17} />
+                <span>Appeler le +228 97 31 78 25</span>
+              </a>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
       </div>
     </section>

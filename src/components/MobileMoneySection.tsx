@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ScrollReveal } from './ScrollReveal';
 import { 
   CheckCircle2, 
   ArrowDownLeft, 
@@ -281,62 +282,65 @@ export const MobileMoneySection: React.FC = () => {
         <div className="mm-main-grid">
           
           {/* COLONNE GAUCHE : Storytelling clair & Partenaires Officiels */}
-          <div>
-            <h2 
-              style={{ 
-                fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",
-                fontSize: 'clamp(2.1rem, 4.2vw, 3.2rem)', 
-                fontWeight: 800,
-                color: '#0f241d', 
-                lineHeight: 1.15,
-                letterSpacing: '-0.03em',
-                marginBottom: '1.5rem' 
-              }}
-            >
-              Finance Digitale : décaissez et remboursez directement sur votre téléphone
-            </h2>
-
-            <p 
-              style={{ 
-                fontSize: 'clamp(1.05rem, 1.8vw, 1.18rem)', 
-                color: '#475569', 
-                lineHeight: 1.7,
-                marginBottom: '2.5rem',
-                maxWidth: '620px'
-              }}
-            >
-              Ne perdez plus votre temps dans les transports ni dans les files d'attente au siège. 
-              Grâce à l’interconnexion directe de Medad avec <strong>Mixx (YAS)</strong> et <strong>Moov Money</strong>, 
-              vos financements et vos remboursements s'effectuent en toute sécurité depuis votre boutique ou atelier.
-            </p>
-
-            {/* Sélecteur de mode en boutons pill épurés */}
-            <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
-              <button 
-                type="button"
-                className={`mm-mode-btn ${activeMode === 'decaissement' ? 'active' : 'inactive'}`}
-                onClick={() => setActiveMode('decaissement')}
+          <ScrollReveal direction="left" distance={65} duration={0.9}>
+            <div>
+              <h2 
+                style={{ 
+                  fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",
+                  fontSize: 'clamp(2.1rem, 4.2vw, 3.2rem)', 
+                  fontWeight: 800,
+                  color: '#0f241d', 
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.03em',
+                  marginBottom: '1.5rem' 
+                }}
               >
-                <ArrowDownLeft size={18} />
-                <span>Recevoir mon crédit (Décaissement)</span>
-              </button>
+                Finance Digitale : décaissez et remboursez directement sur votre téléphone
+              </h2>
 
-              <button 
-                type="button"
-                className={`mm-mode-btn ${activeMode === 'remboursement' ? 'active' : 'inactive'}`}
-                onClick={() => setActiveMode('remboursement')}
+              <p 
+                style={{ 
+                  fontSize: 'clamp(1.05rem, 1.8vw, 1.18rem)', 
+                  color: '#475569', 
+                  lineHeight: 1.7,
+                  marginBottom: '2.5rem',
+                  maxWidth: '620px'
+                }}
               >
-                <ArrowUpRight size={18} />
-                <span>Payer mes échéances & Épargner</span>
-              </button>
+                Ne perdez plus votre temps dans les transports ni dans les files d'attente au siège. 
+                Grâce à l’interconnexion directe de Medad avec <strong>Mixx (YAS)</strong> et <strong>Moov Money</strong>, 
+                vos financements et vos remboursements s'effectuent en toute sécurité depuis votre boutique ou atelier.
+              </p>
+
+              {/* Sélecteur de mode en boutons pill épurés */}
+              <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}>
+                <button 
+                  type="button"
+                  className={`mm-mode-btn ${activeMode === 'decaissement' ? 'active' : 'inactive'}`}
+                  onClick={() => setActiveMode('decaissement')}
+                >
+                  <ArrowDownLeft size={18} />
+                  <span>Recevoir mon crédit (Décaissement)</span>
+                </button>
+
+                <button 
+                  type="button"
+                  className={`mm-mode-btn ${activeMode === 'remboursement' ? 'active' : 'inactive'}`}
+                  onClick={() => setActiveMode('remboursement')}
+                >
+                  <ArrowUpRight size={18} />
+                  <span>Payer mes échéances & Épargner</span>
+                </button>
+              </div>
+
             </div>
-
-          </div>
+          </ScrollReveal>
 
           {/* COLONNE DROITE : VRAI SMARTPHONE ANDROID HAUTE-FIDÉLITÉ PENCHÉ EN 3D */}
-          <div className="android-wrapper">
-            <div className="android-shadow" />
-            <div className="android-device">
+          <ScrollReveal direction="right" distance={65} duration={0.9} delay={100} style={{ width: '100%' }}>
+            <div className="android-wrapper">
+              <div className="android-shadow" />
+              <div className="android-device">
               <div className="android-screen">
                 <div className="android-glass-reflection" />
                 
@@ -588,6 +592,7 @@ export const MobileMoneySection: React.FC = () => {
               </div>
             </div>
           </div>
+          </ScrollReveal>
         </div>
 
       </div>
