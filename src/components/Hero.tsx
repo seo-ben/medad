@@ -43,6 +43,7 @@ const HERO_SLIDES: Slide[] = [
 export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   useEffect(() => {
     if (isPaused) return;
@@ -60,22 +61,45 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
     setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (diff > 45) {
+      handleNext();
+    } else if (diff < -45) {
+      handlePrev();
+    }
+    setTouchStartX(null);
+  };
+
   return (
     <section
       className="hero-section"
-      style={{
-        position: 'relative',
-        background: '#ffffff',
-        overflow: 'hidden',
-        minHeight: 'calc(100vh - 120px)',
-        display: 'flex',
-        alignItems: 'center'
-      }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <style>{`
+        .hero-section {
+          position: relative;
+          background: #ffffff;
+          overflow: hidden;
+          min-height: calc(100vh - 110px);
+          display: flex;
+          align-items: center;
+        }
+
         /* Calques d'images superposées avec fondu enchaîné */
+        .hero-slides-wrapper {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+        }
+
         .hero-slide-bg {
           position: absolute;
           inset: 0;
@@ -86,7 +110,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
           transform: scale(1.04);
           transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 6s ease-out;
           pointer-events: none;
-          z-index: 1;
         }
 
         .hero-slide-bg.active {
@@ -101,16 +124,92 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
           background: linear-gradient(
             90deg,
             #ffffff 0%,
-            rgba(255, 255, 255, 0.98) 36%,
-            rgba(255, 255, 255, 0.88) 48%,
-            rgba(255, 255, 255, 0.35) 65%,
-            rgba(255, 255, 255, 0) 80%
+            rgba(255, 255, 255, 0.98) 38%,
+            rgba(255, 255, 255, 0.88) 50%,
+            rgba(255, 255, 255, 0.35) 68%,
+            rgba(255, 255, 255, 0) 84%
           );
           z-index: 2;
           pointer-events: none;
         }
 
-        /* Indicateurs et contrôles du slider */
+        /* Conteneur de texte et actions */
+        .hero-text-container {
+          position: relative;
+          z-index: 3;
+          width: 100%;
+          padding: 4.5rem 1.5rem;
+        }
+
+        .hero-text-content {
+          max-width: 620px;
+        }
+
+        .hero-title {
+          font-family: 'Bricolage Grotesque', 'Outfit', sans-serif;
+          font-size: clamp(2.4rem, 5vw, 4.2rem);
+          font-weight: 800;
+          letter-spacing: -0.035em;
+          line-height: 1.12;
+          color: #0f172a;
+          margin: 0 0 1.25rem 0;
+        }
+
+        .hero-desc {
+          font-size: clamp(1.02rem, 1.35vw, 1.18rem);
+          color: #475569;
+          line-height: 1.7;
+          margin: 0 0 2.25rem 0;
+          max-width: 520px;
+          font-weight: 400;
+        }
+
+        .hero-actions {
+          display: flex;
+          align-items: center;
+          gap: 1.1rem;
+          flex-wrap: wrap;
+        }
+
+        .hero-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.65rem;
+          padding: 0.95rem 2.1rem;
+          border-radius: 9999px;
+          font-weight: 700;
+          font-size: 0.96rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          text-decoration: none;
+          justify-content: center;
+        }
+
+        .hero-btn-primary {
+          background: #065f46;
+          color: #ffffff;
+          border: none;
+          box-shadow: 0 8px 24px rgba(6, 95, 70, 0.28);
+        }
+
+        .hero-btn-primary:hover {
+          background: #044e39;
+          transform: translateY(-2px);
+          box-shadow: 0 12px 28px rgba(6, 95, 70, 0.35);
+        }
+
+        .hero-btn-secondary {
+          background: #ffffff;
+          color: #065f46;
+          border: 2px solid #065f46;
+        }
+
+        .hero-btn-secondary:hover {
+          background: #f0fdf4;
+          transform: translateY(-2px);
+        }
+
+        /* Indicateurs et contrôles du slider ancrés dans le carousel */
         .hero-controls {
           position: absolute;
           bottom: 2rem;
@@ -119,12 +218,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
           display: flex;
           align-items: center;
           gap: 0.75rem;
-          background: rgba(255, 255, 255, 0.85);
+          background: rgba(255, 255, 255, 0.88);
           backdrop-filter: blur(8px);
           padding: 0.5rem 0.9rem;
           border-radius: 9999px;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
           border: 1px solid rgba(226, 232, 240, 0.8);
+          pointer-events: auto;
         }
 
         .hero-arrow-btn {
@@ -163,36 +263,146 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
           background: #065f46;
         }
 
+        /* RESPONSIVITÉ MOBILE & TABLETTE */
         @media (max-width: 900px) {
           .hero-section {
             min-height: auto !important;
-            padding-top: 2rem !important;
-            padding-bottom: 2rem !important;
+            padding: 2rem 0 2.5rem 0 !important;
             flex-direction: column !important;
+            align-items: stretch !important;
           }
+
+          .hero-text-container {
+            order: 1 !important;
+            padding: 1rem 1.25rem 0 1.25rem !important;
+          }
+
+          .hero-desktop-br {
+            display: none !important;
+          }
+
+          .hero-title {
+            font-size: clamp(2rem, 7.5vw, 3rem) !important;
+            line-height: 1.15 !important;
+            margin-bottom: 1rem !important;
+          }
+
+          .hero-desc {
+            font-size: 1rem !important;
+            line-height: 1.65 !important;
+            margin-bottom: 1.75rem !important;
+          }
+
+          /* Image slider en carte élégante sous le texte avec swipe */
           .hero-slides-wrapper {
+            order: 2 !important;
             position: relative !important;
-            height: 340px !important;
-            width: 100% !important;
-            border-radius: 20px !important;
+            width: calc(100% - 2.5rem) !important;
+            max-width: 580px !important;
+            height: 290px !important;
+            margin: 2rem auto 0 auto !important;
+            border-radius: 22px !important;
             overflow: hidden !important;
-            margin-top: 2rem !important;
+            box-shadow: 0 12px 32px -8px rgba(15, 36, 29, 0.16) !important;
           }
+
           .hero-slide-bg {
-            border-radius: 20px !important;
+            border-radius: 22px !important;
+            background-position: center center !important;
           }
+
           .hero-gradient-overlay {
             display: none !important;
           }
+
           .hero-controls {
-            bottom: 1rem;
-            right: 1.5rem;
+            bottom: 1rem !important;
+            right: 1rem !important;
+            padding: 0.4rem 0.75rem !important;
+            gap: 0.5rem !important;
+          }
+
+          .hero-arrow-btn {
+            width: 28px !important;
+            height: 28px !important;
+          }
+
+          .hero-slide-dot {
+            width: 6px !important;
+            height: 6px !important;
+          }
+
+          .hero-slide-dot.active {
+            width: 20px !important;
+          }
+        }
+
+        @media (max-width: 540px) {
+          .hero-actions {
+            flex-direction: column !important;
+            width: 100% !important;
+            gap: 0.75rem !important;
+          }
+
+          .hero-btn {
+            width: 100% !important;
+            padding: 0.85rem 1.25rem !important;
+            font-size: 0.94rem !important;
+          }
+
+          .hero-slides-wrapper {
+            height: 250px !important;
+            width: calc(100% - 2rem) !important;
+            margin-top: 1.75rem !important;
           }
         }
       `}</style>
 
-      {/* Ensemble des images superposées en arrière-plan */}
-      <div className="hero-slides-wrapper" style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
+      {/* Contenu textuel et actions (prioritaire au-dessus sur mobile) */}
+      <div className="hero-text-container container">
+        <div className="hero-text-content">
+          {/* Titre Principal */}
+          <h1 className="hero-title">
+            Avec <span style={{ color: '#065f46' }}>Medad</span>, <br className="hero-desktop-br" />
+            vos projets prennent vie !
+          </h1>
+
+          {/* Sous-titre officiel */}
+          <p className="hero-desc">
+            Accédez à des solutions de financement simples, rapides et adaptées à vos besoins. Medad vous accompagne dans la réalisation de vos projets, aujourd'hui et demain.
+          </p>
+
+          {/* Boutons d'Action */}
+          <div className="hero-actions">
+            <button
+              type="button"
+              onClick={() => onOpenPreApproval()}
+              className="hero-btn hero-btn-primary"
+            >
+              <ArrowRight size={18} />
+              <span>Devenir client</span>
+            </button>
+
+            <a
+              href="#produits"
+              className="hero-btn hero-btn-secondary"
+            >
+              <span>Nos services</span>
+              <ArrowRight size={18} />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Dégradé doux à gauche sur desktop */}
+      <div className="hero-gradient-overlay" />
+
+      {/* Carrousel d'images avec swipe tactile mobile */}
+      <div
+        className="hero-slides-wrapper"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {HERO_SLIDES.map((slide, idx) => (
           <div
             key={slide.id}
@@ -203,145 +413,42 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
             aria-label={slide.alt}
           />
         ))}
-      </div>
 
-      {/* Dégradé doux à gauche */}
-      <div className="hero-gradient-overlay" />
+        {/* Contrôles du slider (Flèches et Points) intégrés sur l'image */}
+        <div className="hero-controls">
+          <button 
+            type="button" 
+            className="hero-arrow-btn" 
+            onClick={handlePrev}
+            aria-label="Diapositive précédente"
+          >
+            <ChevronLeft size={16} />
+          </button>
 
-      {/* Contenu textuel et actions positionnés à gauche */}
-      <div className="container" style={{ position: 'relative', zIndex: 3, width: '100%', padding: '4.5rem 1.5rem' }}>
-        <div style={{ maxWidth: '620px' }}>
-          
-          {/* Titre Principal sans aucun label au-dessus */}
-          <h1 style={{
-            fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",
-            fontSize: 'clamp(2.5rem, 5.2vw, 4.4rem)',
-            fontWeight: 800,
-            letterSpacing: '-0.035em',
-            lineHeight: 1.12,
-            color: '#0f172a',
-            marginBottom: '1.25rem'
-          }}>
-            Avec <span style={{ color: '#065f46' }}>Medad</span>,<br />
-            vos projets prennent<br />
-            vie !
-          </h1>
-
-          {/* Sous-titre officiel avec précision dynamique */}
-          <p style={{
-            fontSize: 'clamp(1.02rem, 1.35vw, 1.18rem)',
-            color: '#475569',
-            lineHeight: 1.7,
-            marginBottom: '2.5rem',
-            maxWidth: '520px',
-            fontWeight: 400
-          }}>
-            Accédez à des solutions de financement simples, rapides et adaptées à vos besoins. Medad vous accompagne dans la réalisation de vos projets, aujourd'hui et demain.
-          </p>
-
-          {/* Boutons d'Action */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
-            {/* Bouton Primaire « → Devenir client » */}
-            <button
-              type="button"
-              onClick={() => onOpenPreApproval()}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.65rem',
-                padding: '0.95rem 2.1rem',
-                borderRadius: '9999px',
-                background: '#065f46',
-                color: '#ffffff',
-                fontWeight: 700,
-                fontSize: '0.96rem',
-                border: 'none',
-                boxShadow: '0 8px 24px rgba(6, 95, 70, 0.28)',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#044e39';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 12px 28px rgba(6, 95, 70, 0.35)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#065f46';
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 8px 24px rgba(6, 95, 70, 0.28)';
-              }}
-            >
-              <ArrowRight size={18} />
-              <span>Devenir client</span>
-            </button>
-
-            {/* Bouton Secondaire « Nos services → » */}
-            <a
-              href="#produits"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.65rem',
-                padding: '0.92rem 2.1rem',
-                borderRadius: '9999px',
-                background: '#ffffff',
-                color: '#065f46',
-                border: '2px solid #065f46',
-                fontWeight: 700,
-                fontSize: '0.96rem',
-                cursor: 'pointer',
-                textDecoration: 'none',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#f0fdf4';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#ffffff';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              <span>Nos services</span>
-              <ArrowRight size={18} />
-            </a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            {HERO_SLIDES.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                className={`hero-slide-dot ${currentSlide === i ? 'active' : ''}`}
+                onClick={() => setCurrentSlide(i)}
+                aria-label={`Aller à la diapositive ${i + 1}`}
+              />
+            ))}
           </div>
 
+          <button 
+            type="button" 
+            className="hero-arrow-btn" 
+            onClick={handleNext}
+            aria-label="Diapositive suivante"
+          >
+            <ChevronRight size={16} />
+          </button>
         </div>
-      </div>
-
-      {/* Contrôles du slider (Flèches et Points) */}
-      <div className="hero-controls">
-        <button 
-          type="button" 
-          className="hero-arrow-btn" 
-          onClick={handlePrev}
-          aria-label="Diapositive précédente"
-        >
-          <ChevronLeft size={18} />
-        </button>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-          {HERO_SLIDES.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              className={`hero-slide-dot ${currentSlide === i ? 'active' : ''}`}
-              onClick={() => setCurrentSlide(i)}
-              aria-label={`Aller à la diapositive ${i + 1}`}
-            />
-          ))}
-        </div>
-
-        <button 
-          type="button" 
-          className="hero-arrow-btn" 
-          onClick={handleNext}
-          aria-label="Diapositive suivante"
-        >
-          <ChevronRight size={18} />
-        </button>
       </div>
     </section>
   );
 };
+
+export default Hero;

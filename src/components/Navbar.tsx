@@ -254,10 +254,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval }) => {
 
         {/* Boutons d'Action à Droite */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
-          {/* Bouton Pill « Devenir client → » */}
+          {/* Bouton Pill « Devenir client → » (Visible uniquement sur Desktop) */}
           <button
             type="button"
             onClick={onOpenPreApproval}
+            className="navbar-cta-btn"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -298,114 +299,131 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval }) => {
               justifyContent: 'center',
               width: '42px',
               height: '42px',
-              borderRadius: '10px',
-              border: '1px solid #e2e8f0',
-              background: '#ffffff',
-              color: '#1e293b',
-              cursor: 'pointer'
+              borderRadius: '12px',
+              background: mobileMenuOpen ? '#f1f5f9' : '#ffffff',
+              border: '1.5px solid #e2e8f0',
+              color: '#0f241d',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
             }}
-            aria-label="Menu"
+            aria-label={mobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
           >
             {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Menu Mobile Déroulant */}
+      {/* TIROIR MOBILE PLEIN ÉCRAN FLUIDE */}
       {mobileMenuOpen && (
-        <div style={{
-          background: '#ffffff',
-          borderTop: '1px solid #f1f5f9',
-          padding: '1.5rem',
-          boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08)'
-        }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            {/* 5 Liens Principaux */}
-            {primaryNavItems.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                onClick={() => {
-                  setActiveLink(item.id);
-                  setMobileMenuOpen(false);
-                }}
-                style={{
-                  fontWeight: activeLink === item.id ? 700 : 600,
-                  color: activeLink === item.id ? '#065f46' : '#334155',
-                  fontSize: '1rem',
-                  textDecoration: 'none'
-                }}
-              >
-                {item.label}
-              </a>
-            ))}
-
-            {/* Séparateur pour le Reste */}
-            <div style={{
-              margin: '0.4rem 0 0.2rem 0',
-              paddingTop: '0.8rem',
-              borderTop: '1px solid #f1f5f9',
-              fontSize: '0.75rem',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              color: '#94a3b8'
-            }}>
-              Découvrir aussi
-            </div>
-
-            {dropdownItems.map((subItem) => {
-              const Icon = subItem.icon;
-              return (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            top: '72px',
+            backgroundColor: 'rgba(15, 23, 42, 0.45)',
+            backdropFilter: 'blur(4px)',
+            zIndex: 999,
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <div
+            style={{
+              backgroundColor: '#ffffff',
+              borderBottomLeftRadius: '24px',
+              borderBottomRightRadius: '24px',
+              padding: '1.5rem',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15)',
+              maxHeight: 'calc(100vh - 90px)',
+              overflowY: 'auto'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Navigation Principale Mobile */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', marginBottom: '1.25rem' }}>
+              {primaryNavItems.map((item) => (
                 <a
-                  key={subItem.id}
-                  href={subItem.href}
+                  key={item.id}
+                  href={item.href}
                   onClick={() => {
-                    setActiveLink(subItem.id);
+                    setActiveLink(item.id);
                     setMobileMenuOpen(false);
                   }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.75rem',
-                    fontWeight: activeLink === subItem.id ? 700 : 500,
-                    color: activeLink === subItem.id ? '#065f46' : '#475569',
-                    fontSize: '0.94rem',
-                    textDecoration: 'none'
+                    justifyContent: 'space-between',
+                    padding: '0.85rem 1rem',
+                    borderRadius: '14px',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                    fontSize: '1.05rem',
+                    color: activeLink === item.id ? '#065f46' : '#1e293b',
+                    backgroundColor: activeLink === item.id ? '#f0fdf4' : 'transparent',
+                    transition: 'all 0.15s ease'
                   }}
                 >
-                  <Icon size={18} color="#065f46" />
-                  <span>{subItem.label}</span>
+                  <span>{item.label}</span>
+                  <ArrowRight size={16} color={activeLink === item.id ? '#065f46' : '#94a3b8'} />
                 </a>
-              );
-            })}
+              ))}
+            </div>
 
-            <div style={{ paddingTop: '1rem', borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenPreApproval();
-                }}
-                style={{
-                  width: '100%',
-                  padding: '0.9rem',
-                  borderRadius: '9999px',
-                  background: '#065f46',
-                  color: '#ffffff',
-                  fontWeight: 700,
-                  fontSize: '0.95rem',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.5rem'
-                }}
-              >
-                <span>Devenir client</span>
-                <ArrowRight size={16} />
-              </button>
+            {/* Rubriques Complémentaires Mobile */}
+            <div style={{ paddingTop: '1rem', borderTop: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: '0.74rem', fontWeight: 800, textTransform: 'uppercase', color: '#64748b', letterSpacing: '0.06em', marginBottom: '0.75rem', paddingLeft: '0.5rem' }}>
+                Autres Services & Infos
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                {dropdownItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      onClick={() => {
+                        setActiveLink(item.id);
+                        setMobileMenuOpen(false);
+                      }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        padding: '0.75rem 0.85rem',
+                        borderRadius: '12px',
+                        textDecoration: 'none',
+                        color: '#334155',
+                        transition: 'background-color 0.15s ease'
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '34px',
+                          height: '34px',
+                          borderRadius: '10px',
+                          backgroundColor: '#f1f5f9',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#065f46',
+                          flexShrink: 0
+                        }}
+                      >
+                        <Icon size={18} />
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ fontWeight: 700, fontSize: '0.92rem', color: '#0f241d' }}>
+                          {item.label}
+                        </span>
+                        <span style={{ fontSize: '0.76rem', color: '#64748b' }}>
+                          {item.description}
+                        </span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
@@ -430,10 +448,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval }) => {
             display: none !important;
           }
         }
+        @media (max-width: 899px) {
+          .navbar-cta-btn {
+            display: none !important;
+          }
+        }
       `}</style>
     </header>
   );
 };
 
 export default Navbar;
-
