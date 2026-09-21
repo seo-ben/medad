@@ -69,9 +69,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
     if (touchStartX === null) return;
     const touchEndX = e.changedTouches[0].clientX;
     const diff = touchStartX - touchEndX;
-    if (diff > 45) {
+    if (diff > 40) {
       handleNext();
-    } else if (diff < -45) {
+    } else if (diff < -40) {
       handlePrev();
     }
     setTouchStartX(null);
@@ -82,34 +82,40 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
       className="hero-section"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <style>{`
         .hero-section {
           position: relative;
           background: #ffffff;
           overflow: hidden;
-          min-height: calc(100vh - 110px);
+          min-height: calc(100vh - 100px);
           display: flex;
           align-items: center;
         }
 
-        /* Calques d'images superposées avec fondu enchaîné */
+        /* 1. LES IMAGES DU CARROUSEL TOUJOURS EN ARRIÈRE-PLAN (Desktop ET Mobile) */
         .hero-slides-wrapper {
           position: absolute;
           inset: 0;
+          width: 100%;
+          height: 100%;
           z-index: 1;
+          pointer-events: none;
         }
 
         .hero-slide-bg {
           position: absolute;
           inset: 0;
+          width: 100%;
+          height: 100%;
           background-size: cover;
           background-position: center right;
           background-repeat: no-repeat;
           opacity: 0;
           transform: scale(1.04);
           transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 6s ease-out;
-          pointer-events: none;
         }
 
         .hero-slide-bg.active {
@@ -117,23 +123,25 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
           transform: scale(1);
         }
 
-        /* Dégradé de fondu doux à gauche pour garantir une lisibilité optimale */
+        /* 2. DÉGRADÉ DE LISIBILITÉ DEVANT LES IMAGES MAIS DERRIÈRE LE TEXTE */
         .hero-gradient-overlay {
           position: absolute;
           inset: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 2;
+          pointer-events: none;
           background: linear-gradient(
             90deg,
             #ffffff 0%,
             rgba(255, 255, 255, 0.98) 38%,
-            rgba(255, 255, 255, 0.88) 50%,
-            rgba(255, 255, 255, 0.35) 68%,
-            rgba(255, 255, 255, 0) 84%
+            rgba(255, 255, 255, 0.88) 52%,
+            rgba(255, 255, 255, 0.35) 70%,
+            rgba(255, 255, 255, 0) 85%
           );
-          z-index: 2;
-          pointer-events: none;
         }
 
-        /* Conteneur de texte et actions */
+        /* 3. CONTENU TEXTUEL & ACTIONS (Toujours au premier plan) */
         .hero-text-container {
           position: relative;
           z-index: 3;
@@ -157,11 +165,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
 
         .hero-desc {
           font-size: clamp(1.02rem, 1.35vw, 1.18rem);
-          color: #475569;
+          color: #334155;
           line-height: 1.7;
           margin: 0 0 2.25rem 0;
           max-width: 520px;
-          font-weight: 400;
+          font-weight: 500;
         }
 
         .hero-actions {
@@ -209,7 +217,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
           transform: translateY(-2px);
         }
 
-        /* Indicateurs et contrôles du slider ancrés dans le carousel */
+        /* 4. CONTRÔLES DU SLIDER (Flèches et Points) */
         .hero-controls {
           position: absolute;
           bottom: 2rem;
@@ -263,18 +271,33 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
           background: #065f46;
         }
 
-        /* RESPONSIVITÉ MOBILE & TABLETTE */
+        /* 📱 RESPONSIVITÉ MOBILE : LES IMAGES RESTENT EN ARRIÈRE-PLAN DERRIÈRE LE TEXTE */
         @media (max-width: 900px) {
           .hero-section {
-            min-height: auto !important;
-            padding: 2rem 0 2.5rem 0 !important;
-            flex-direction: column !important;
-            align-items: stretch !important;
+            min-height: calc(100vh - 72px) !important;
+            padding: 3rem 0 4.5rem 0 !important;
+            display: flex !important;
+            align-items: center !important;
+          }
+
+          /* Arrière-plan mobile : l'image reste plein écran avec centrage */
+          .hero-slide-bg {
+            background-position: center center !important;
+          }
+
+          /* Dégradé vertical fluide sur mobile pour garantir un contraste 100% net */
+          .hero-gradient-overlay {
+            background: linear-gradient(
+              180deg,
+              rgba(255, 255, 255, 0.95) 0%,
+              rgba(255, 255, 255, 0.89) 45%,
+              rgba(255, 255, 255, 0.78) 75%,
+              rgba(255, 255, 255, 0.94) 100%
+            ) !important;
           }
 
           .hero-text-container {
-            order: 1 !important;
-            padding: 1rem 1.25rem 0 1.25rem !important;
+            padding: 1.5rem 1.25rem !important;
           }
 
           .hero-desktop-br {
@@ -282,44 +305,24 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
           }
 
           .hero-title {
-            font-size: clamp(2rem, 7.5vw, 3rem) !important;
+            font-size: clamp(2.1rem, 7.8vw, 3.2rem) !important;
             line-height: 1.15 !important;
             margin-bottom: 1rem !important;
           }
 
           .hero-desc {
-            font-size: 1rem !important;
+            font-size: 1.02rem !important;
             line-height: 1.65 !important;
-            margin-bottom: 1.75rem !important;
+            margin-bottom: 1.85rem !important;
+            color: #1e293b !important;
           }
 
-          /* Image slider en carte élégante sous le texte avec swipe */
-          .hero-slides-wrapper {
-            order: 2 !important;
-            position: relative !important;
-            width: calc(100% - 2.5rem) !important;
-            max-width: 580px !important;
-            height: 290px !important;
-            margin: 2rem auto 0 auto !important;
-            border-radius: 22px !important;
-            overflow: hidden !important;
-            box-shadow: 0 12px 32px -8px rgba(15, 36, 29, 0.16) !important;
-          }
-
-          .hero-slide-bg {
-            border-radius: 22px !important;
-            background-position: center center !important;
-          }
-
-          .hero-gradient-overlay {
-            display: none !important;
-          }
-
+          /* Contrôles du slider discrets et élégants en bas à droite sur mobile */
           .hero-controls {
-            bottom: 1rem !important;
-            right: 1rem !important;
-            padding: 0.4rem 0.75rem !important;
-            gap: 0.5rem !important;
+            bottom: 1.25rem !important;
+            right: 1.25rem !important;
+            padding: 0.35rem 0.7rem !important;
+            gap: 0.45rem !important;
           }
 
           .hero-arrow-btn {
@@ -349,16 +352,27 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
             padding: 0.85rem 1.25rem !important;
             font-size: 0.94rem !important;
           }
-
-          .hero-slides-wrapper {
-            height: 250px !important;
-            width: calc(100% - 2rem) !important;
-            margin-top: 1.75rem !important;
-          }
         }
       `}</style>
 
-      {/* Contenu textuel et actions (prioritaire au-dessus sur mobile) */}
+      {/* 1. IMAGES DU CARROUSEL TOUJOURS EN ARRIÈRE-PLAN */}
+      <div className="hero-slides-wrapper">
+        {HERO_SLIDES.map((slide, idx) => (
+          <div
+            key={slide.id}
+            className={`hero-slide-bg ${currentSlide === idx ? 'active' : ''}`}
+            style={{
+              backgroundImage: `url('${slide.image}')`
+            }}
+            aria-label={slide.alt}
+          />
+        ))}
+      </div>
+
+      {/* 2. DÉGRADÉ DE LISIBILITÉ DOUX */}
+      <div className="hero-gradient-overlay" />
+
+      {/* 3. TEXTE & ACTIONS DEVANT LES IMAGES */}
       <div className="hero-text-container container">
         <div className="hero-text-content">
           {/* Titre Principal */}
@@ -394,58 +408,37 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
         </div>
       </div>
 
-      {/* Dégradé doux à gauche sur desktop */}
-      <div className="hero-gradient-overlay" />
+      {/* 4. CONTRÔLES DU CARROUSEL (Flèches et Points) */}
+      <div className="hero-controls">
+        <button 
+          type="button" 
+          className="hero-arrow-btn" 
+          onClick={handlePrev}
+          aria-label="Diapositive précédente"
+        >
+          <ChevronLeft size={16} />
+        </button>
 
-      {/* Carrousel d'images avec swipe tactile mobile */}
-      <div
-        className="hero-slides-wrapper"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        {HERO_SLIDES.map((slide, idx) => (
-          <div
-            key={slide.id}
-            className={`hero-slide-bg ${currentSlide === idx ? 'active' : ''}`}
-            style={{
-              backgroundImage: `url('${slide.image}')`
-            }}
-            aria-label={slide.alt}
-          />
-        ))}
-
-        {/* Contrôles du slider (Flèches et Points) intégrés sur l'image */}
-        <div className="hero-controls">
-          <button 
-            type="button" 
-            className="hero-arrow-btn" 
-            onClick={handlePrev}
-            aria-label="Diapositive précédente"
-          >
-            <ChevronLeft size={16} />
-          </button>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            {HERO_SLIDES.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                className={`hero-slide-dot ${currentSlide === i ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(i)}
-                aria-label={`Aller à la diapositive ${i + 1}`}
-              />
-            ))}
-          </div>
-
-          <button 
-            type="button" 
-            className="hero-arrow-btn" 
-            onClick={handleNext}
-            aria-label="Diapositive suivante"
-          >
-            <ChevronRight size={16} />
-          </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          {HERO_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              className={`hero-slide-dot ${currentSlide === i ? 'active' : ''}`}
+              onClick={() => setCurrentSlide(i)}
+              aria-label={`Aller à la diapositive ${i + 1}`}
+            />
+          ))}
         </div>
+
+        <button 
+          type="button" 
+          className="hero-arrow-btn" 
+          onClick={handleNext}
+          aria-label="Diapositive suivante"
+        >
+          <ChevronRight size={16} />
+        </button>
       </div>
     </section>
   );
