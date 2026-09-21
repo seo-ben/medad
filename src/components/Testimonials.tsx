@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { TESTIMONIALS, type Testimonial } from '../data/content';
+import { TESTIMONIALS, type Testimonial } from '../data';
 import { Quote, MapPin, TrendingUp, ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
 

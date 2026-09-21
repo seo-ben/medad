@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Volume2, Play, Pause, RotateCcw, CheckCircle2, Languages } from 'lucide-react';
-import { AUDIO_SCRIPTS, type AudioScript } from '../data/content';
+import { AUDIO_SCRIPTS, type AudioScript } from '../data';
 
 interface AudioPlayerModalProps {
   isOpen: boolean;
