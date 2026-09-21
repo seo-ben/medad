@@ -7,7 +7,7 @@ interface NavbarProps {
   onOpenPreApproval: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval: _onOpenPreApproval }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [activeLink, setActiveLink] = useState<string>('accueil');
@@ -252,43 +252,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval }) => {
           </div>
         </nav>
 
-        {/* Boutons d'Action à Droite */}
+        {/* Toggle Menu Mobile */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexShrink: 0 }}>
-          {/* Bouton Pill « Devenir client → » (Visible uniquement sur Desktop) */}
-          <button
-            type="button"
-            onClick={onOpenPreApproval}
-            className="navbar-cta-btn"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.55rem',
-              padding: '0.7rem 1.45rem',
-              borderRadius: '9999px',
-              background: '#065f46',
-              color: '#ffffff',
-              fontSize: '0.9rem',
-              fontWeight: 700,
-              border: 'none',
-              cursor: 'pointer',
-              boxShadow: '0 4px 14px rgba(6, 95, 70, 0.25)',
-              transition: 'all 0.15s ease',
-              whiteSpace: 'nowrap'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#044e39';
-              e.currentTarget.style.transform = 'translateY(-1px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#065f46';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
-          >
-            <span>Devenir client</span>
-            <ArrowRight size={16} />
-          </button>
-
-          {/* Toggle Menu Mobile */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -445,11 +410,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval }) => {
             display: flex !important;
           }
           .mobile-toggle {
-            display: none !important;
-          }
-        }
-        @media (max-width: 899px) {
-          .navbar-cta-btn {
             display: none !important;
           }
         }

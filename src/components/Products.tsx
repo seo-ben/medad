@@ -478,7 +478,7 @@ export const Products: React.FC<ProductsProps> = ({ onSelectProduct: _onSelectPr
                       e.currentTarget.style.outline = 'none';
                     }}
                   >
-                    Devenir client
+                    Faire une demande
                     <span aria-hidden="true" style={{ fontSize: '1.1em', lineHeight: 1 }}>→</span>
                   </button>
 

@@ -40,7 +40,7 @@ const HERO_SLIDES: Slide[] = [
   }
 ];
 
-export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval: _onOpenPreApproval }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
@@ -386,22 +386,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval }) => {
             Accédez à des solutions de financement simples, rapides et adaptées à vos besoins. Medad vous accompagne dans la réalisation de vos projets, aujourd'hui et demain.
           </p>
 
-          {/* Boutons d'Action */}
+          {/* Bouton d'Action */}
           <div className="hero-actions">
-            <button
-              type="button"
-              onClick={() => onOpenPreApproval()}
-              className="hero-btn hero-btn-primary"
-            >
-              <ArrowRight size={18} />
-              <span>Devenir client</span>
-            </button>
-
             <a
               href="#produits"
-              className="hero-btn hero-btn-secondary"
+              className="hero-btn hero-btn-primary"
             >
-              <span>Nos services</span>
+              <span>Découvrir nos services</span>
               <ArrowRight size={18} />
             </a>
           </div>
