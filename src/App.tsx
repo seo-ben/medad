@@ -8,6 +8,7 @@ import { NetworkMap } from './components/NetworkMap';
 import { Testimonials } from './components/Testimonials';
 import { FaqSection } from './components/FaqSection';
 import { ContactSection } from './components/ContactSection';
+import { ScrollReveal } from './components/ScrollReveal';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { AudioPlayerModal } from './components/AudioPlayerModal';
@@ -35,43 +36,57 @@ export const App: React.FC = () => {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-light)' }}>
-      {/* Navigation & Barre Réglementaire */}
+      {/* Navigation */}
       <Navbar
         onOpenAudio={() => setIsAudioOpen(true)}
         onOpenPreApproval={() => handleOpenPreApproval()}
       />
 
-      {/* Main Content */}
+      {/* Main Content : Animations bidirectionnelles au scroll (montant & descendant) */}
       <main style={{ flex: 1 }}>
         {/* 1. Hero Section (Accueil) */}
-        <Hero
-          onOpenAudio={() => setIsAudioOpen(true)}
-          onOpenPreApproval={() => handleOpenPreApproval()}
-        />
+        <ScrollReveal direction="fade" distance={20}>
+          <Hero
+            onOpenAudio={() => setIsAudioOpen(true)}
+            onOpenPreApproval={() => handleOpenPreApproval()}
+          />
+        </ScrollReveal>
 
-        {/* 2. Nos services (Gamme de Produits & Crédits) */}
+        {/* 2. Nos services (Gamme de Produits & Crédits - Défilement interactif fluide 400vh) */}
         <Products
           onSelectProduct={handleSelectProduct}
           onOpenPreApproval={(prodId) => handleOpenPreApproval({ productId: prodId })}
         />
 
         {/* 3. Finance Digitale : décaissez et remboursez directement sur votre téléphone */}
-        <MobileMoneySection />
+        <ScrollReveal>
+          <MobileMoneySection />
+        </ScrollReveal>
 
         {/* 4. Agences & Points de Service */}
-        <NetworkMap />
+        <ScrollReveal>
+          <NetworkMap />
+        </ScrollReveal>
 
         {/* 5. À Propos (Bâtir l'avenir économique des entrepreneurs du Togo) */}
-        <AboutSection onOpenPreApproval={() => handleOpenPreApproval()} />
+        <ScrollReveal>
+          <AboutSection onOpenPreApproval={() => handleOpenPreApproval()} />
+        </ScrollReveal>
 
         {/* 6. Témoignages & Preuve Sociale */}
-        <Testimonials />
+        <ScrollReveal>
+          <Testimonials />
+        </ScrollReveal>
 
         {/* 7. Foire Aux Questions (FAQ) */}
-        <FaqSection />
+        <ScrollReveal>
+          <FaqSection />
+        </ScrollReveal>
 
         {/* 8. Contact & Siège */}
-        <ContactSection />
+        <ScrollReveal>
+          <ContactSection />
+        </ScrollReveal>
       </main>
 
       {/* Footer Institutionnel & Mentions Légales */}

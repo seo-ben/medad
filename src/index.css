@@ -277,3 +277,16 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* ─── Système d'Animation au Scroll (Montant & Descendant) ───────── */
+.scroll-reveal-container {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-container {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
