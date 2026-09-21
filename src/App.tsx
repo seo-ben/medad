@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { AboutSection } from './components/AboutSection';
-import { Products } from './components/Products';
-import { MobileMoneySection } from './components/MobileMoneySection';
-import { NetworkMap } from './components/NetworkMap';
-import { Testimonials } from './components/Testimonials';
-import { FaqSection } from './components/FaqSection';
-import { ContactSection } from './components/ContactSection';
-import { ScrollReveal } from './components/ScrollReveal';
-import { Footer } from './components/Footer';
-import { FloatingWhatsApp } from './components/FloatingWhatsApp';
-import { AudioPlayerModal } from './components/AudioPlayerModal';
-import { PreApprovalModal } from './components/PreApprovalModal';
+import {
+  Navbar,
+  Hero,
+  AboutSection,
+  Products,
+  MobileMoneySection,
+  NetworkMap,
+  Testimonials,
+  FaqSection,
+  ContactSection,
+  ScrollReveal,
+  Footer,
+  FloatingWhatsApp,
+  AudioPlayerModal,
+  PreApprovalModal
+} from './components';
 
 export const App: React.FC = () => {
   const [isAudioOpen, setIsAudioOpen] = useState(false);

@@ -280,3 +280,5 @@ export const AudioPlayerModal: React.FC<AudioPlayerModalProps> = ({ isOpen, onCl
     </div>
   );
 };
+
+export default AudioPlayerModal;
