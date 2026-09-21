@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ShieldCheck, Phone, Menu, X, ArrowRight, ChevronDown, Smartphone, MessageSquare, HelpCircle } from 'lucide-react';
+import { Menu, X, ArrowRight, ChevronDown, Smartphone, MessageSquare, HelpCircle } from 'lucide-react';
 import { MedadLogo } from './MedadLogo';
 
 interface NavbarProps {
@@ -84,70 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval }) => {
       borderBottom: '1px solid #f1f5f9',
       boxShadow: '0 2px 12px -2px rgba(0, 0, 0, 0.04)'
     }}>
-      {/* 1. Bandeau Réglementaire Institutionnel Discret BCEAO / CAS-IMEC */}
-      <div style={{
-        background: '#064e3b',
-        color: '#ffffff',
-        fontSize: '0.74rem',
-        padding: '0.35rem 0',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
-      }}>
-        <div className="container" style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '0.5rem'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              background: 'rgba(255, 255, 255, 0.15)',
-              padding: '0.15rem 0.55rem',
-              borderRadius: '999px',
-              fontWeight: 700,
-              fontSize: '0.7rem',
-              color: '#d1fae5'
-            }}>
-              <ShieldCheck size={12} color="#a7f3d0" />
-              SFD Agréé au Togo
-            </span>
-            <span style={{ color: '#d1fae5' }} className="regulatory-text">
-              Tutelle Ministère Économie & Finances (CAS-IMEC) • Taux d'usure BCEAO &lt; 24% respecté
-            </span>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-            <span style={{ color: '#a7f3d0', fontSize: '0.72rem' }}>
-              APSFD-Togo
-            </span>
-            <a
-              href="https://wa.me/22897317825"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.3rem',
-                color: '#ffffff',
-                fontWeight: 700,
-                fontSize: '0.74rem',
-                background: 'rgba(34, 197, 94, 0.25)',
-                padding: '0.15rem 0.6rem',
-                borderRadius: '999px',
-                border: '1px solid rgba(34, 197, 94, 0.4)'
-              }}
-            >
-              <Phone size={11} color="#4ade80" />
-              <span>+228 97 31 78 25</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Barre Principale de Navigation */}
+      {/* Barre Principale de Navigation */}
       <div className="container" style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -490,14 +427,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval }) => {
             display: flex !important;
           }
           .mobile-toggle {
-            display: none !important;
-          }
-        }
-        @media (max-width: 640px) {
-          .regulatory-text {
-            display: none !important;
-          }
-          .audio-btn-text {
             display: none !important;
           }
         }
