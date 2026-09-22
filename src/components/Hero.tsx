@@ -15,12 +15,12 @@ interface Slide {
 const HERO_SLIDES: Slide[] = [
   {
     id: 0,
-    image: '/hero-slide-office.jpg',
+    image: '/hero-banner-main.png',
     alt: 'Conseillers et services financiers dans les bureaux de Medad'
   },
   {
     id: 1,
-    image: '/hero-banner-main.png',
+    image: '/hero-slide-office.jpg',
     alt: 'Commerçante au marché de Lomé'
   },
   {
@@ -79,6 +79,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenPreApproval: _onOpenPreApprova
 
   return (
     <section
+      id="hero"
       className="hero-section"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}

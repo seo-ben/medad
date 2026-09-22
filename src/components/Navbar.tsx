@@ -7,12 +7,87 @@ interface NavbarProps {
   onOpenPreApproval: () => void;
 }
 
+// Toutes les sections observables (primary + dropdown)
+const ALL_SECTION_IDS = [
+  'accueil',
+  'produits',
+  'mobile-money',
+  'agences',
+  'apropos',
+  'temoignages',
+  'faq',
+  'contact',
+];
+
 export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval: _onOpenPreApproval }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [activeLink, setActiveLink] = useState<string>('accueil');
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Track manual click to avoid instant IntersectionObserver override
+  const manualSetRef = useRef<boolean>(false);
+
+  // IntersectionObserver: met à jour activeLink en fonction des sections visibles
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    // On veut savoir quelle section occupe le plus la fenêtre
+    // Strategy: track which sections are intersecting, pick topmost one
+    const visibleSections = new Map<string, number>();
+
+    const updateActive = () => {
+      if (manualSetRef.current) return;
+      if (visibleSections.size === 0) return;
+      // Pick the section with highest ratio that is visible
+      let bestId = 'accueil';
+      let bestRatio = 0;
+      visibleSections.forEach((ratio, id) => {
+        if (ratio > bestRatio) {
+          bestRatio = ratio;
+          bestId = id;
+        }
+      });
+      setActiveLink(bestId);
+    };
+
+    ALL_SECTION_IDS.forEach((id) => {
+      const el = id === 'accueil' ? document.getElementById('hero') || document.querySelector('section') : document.getElementById(id);
+      if (!el) return;
+
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              visibleSections.set(id, entry.intersectionRatio);
+            } else {
+              visibleSections.delete(id);
+            }
+            updateActive();
+          });
+        },
+        {
+          // Déclenche quand la section est dans les 20% du haut/bas de l'écran
+          rootMargin: '-10% 0px -60% 0px',
+          threshold: [0, 0.1, 0.25, 0.5, 1.0],
+        }
+      );
+
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
+  // Réinitialise le verrou manuel après 1.2s (laisse le temps de scroller)
+  const handleNavClick = (id: string) => {
+    setActiveLink(id);
+    manualSetRef.current = true;
+    setTimeout(() => {
+      manualSetRef.current = false;
+    }, 1200);
+  };
 
   // 5 Liens Principaux Directs Demandés
   const primaryNavItems: { id: string; label: string; href: string }[] = [
@@ -103,7 +178,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval: _onOpenPreApp
             <a
               key={item.id}
               href={item.href}
-              onClick={() => setActiveLink(item.id)}
+              onClick={() => handleNavClick(item.id)}
               style={{
                 fontWeight: activeLink === item.id ? 700 : 500,
                 fontSize: '0.92rem',
@@ -205,7 +280,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval: _onOpenPreApp
                       key={subItem.id}
                       href={subItem.href}
                       onClick={() => {
-                        setActiveLink(subItem.id);
+                        handleNavClick(subItem.id);
                         setDropdownOpen(false);
                       }}
                       style={{
@@ -312,7 +387,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval: _onOpenPreApp
                   key={item.id}
                   href={item.href}
                   onClick={() => {
-                    setActiveLink(item.id);
+                    handleNavClick(item.id);
                     setMobileMenuOpen(false);
                   }}
                   style={{
@@ -348,7 +423,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPreApproval: _onOpenPreApp
                       key={item.id}
                       href={item.href}
                       onClick={() => {
-                        setActiveLink(item.id);
+                        handleNavClick(item.id);
                         setMobileMenuOpen(false);
                       }}
                       style={{
