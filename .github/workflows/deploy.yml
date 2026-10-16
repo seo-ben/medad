@@ -1,0 +1,39 @@
+name: Déploiement CI/CD FTP vers LWS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: 🚀 Build & Déploiement FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Récupération du code
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configuration de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: 📦 Installation des dépendances
+        run: npm ci
+
+      - name: 🏗️ Compilation du projet (Vite)
+        run: npm run build
+
+      - name: 📂 Déploiement FTP sur le serveur LWS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER || 'ftp.medadmicrofinance.com' }}
+          username: ${{ secrets.FTP_USERNAME || 'medad2885653' }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          # Sur LWS, le dossier web est généralement 'htdocs/'.
+          # Si votre compte FTP pointe déjà directement sur la racine web, remplacez par './'
+          server-dir: ${{ vars.FTP_REMOTE_DIR || 'htdocs/' }}
