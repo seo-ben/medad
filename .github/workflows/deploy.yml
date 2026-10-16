@@ -36,4 +36,4 @@ jobs:
           local-dir: ./dist/
           # Sur LWS, le dossier web est généralement 'htdocs/'.
           # Si votre compte FTP pointe déjà directement sur la racine web, remplacez par './'
-          server-dir: ${{ vars.FTP_REMOTE_DIR || 'htdocs/' }}
+          server-dir: ${{ vars.FTP_REMOTE_DIR || './' }}
