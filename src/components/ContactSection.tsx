@@ -54,7 +54,10 @@ export const ContactSection: React.FC = () => {
         padding: '6rem 0',
         backgroundColor: '#faf8f5',
         position: 'relative',
-        borderTop: '1px solid #efe8df'
+        borderTop: '1px solid #efe8df',
+        overflow: 'hidden',
+        width: '100%',
+        maxWidth: '100%'
       }}
     >
       <div className="container" style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 1.5rem' }}>
@@ -92,8 +95,8 @@ export const ContactSection: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-            gap: '3rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+            gap: '2.5rem',
             alignItems: 'start'
           }}
         >
@@ -235,7 +238,7 @@ export const ContactSection: React.FC = () => {
               style={{
                 backgroundColor: '#ffffff',
                 borderRadius: '24px',
-                padding: '2.5rem',
+                padding: 'clamp(1.25rem, 4vw, 2.5rem)',
                 border: '1px solid #e2e8f0',
                 boxShadow: '0 10px 30px -8px rgba(15, 36, 29, 0.08)'
               }}
@@ -345,7 +348,7 @@ export const ContactSection: React.FC = () => {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '1rem' }}>
                   <div>
                     <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
                       Numéro de téléphone *

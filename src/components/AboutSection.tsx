@@ -15,7 +15,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenPreApproval })
         backgroundColor: '#ffffff',
         position: 'relative',
         borderTop: '1px solid #f1f5f9',
-        borderBottom: '1px solid #f1f5f9'
+        borderBottom: '1px solid #f1f5f9',
+        overflow: 'hidden',
+        width: '100%',
+        maxWidth: '100%'
       }}
     >
       <div className="container" style={{ maxWidth: '960px', margin: '0 auto', padding: '0 1.5rem', textAlign: 'center' }}>

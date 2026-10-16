@@ -59,11 +59,12 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   }, [threshold, rootMargin]);
 
   const getHiddenTransform = () => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     switch (direction) {
       case 'left':
-        return `translate3d(-${distance}px, 0, 0)`;
+        return isMobile ? `translate3d(0, ${Math.min(distance, 25)}px, 0)` : `translate3d(-${distance}px, 0, 0)`;
       case 'right':
-        return `translate3d(${distance}px, 0, 0)`;
+        return isMobile ? `translate3d(0, ${Math.min(distance, 25)}px, 0)` : `translate3d(${distance}px, 0, 0)`;
       case 'down':
         return `translate3d(0, -${distance}px, 0) scale(0.985)`;
       case 'up':
@@ -86,6 +87,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
         transition: `opacity ${duration}s cubic-bezier(0.16, 1, 0.3, 1), transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1)`,
         transitionDelay: isVisible ? `${delay}ms` : '0ms',
         willChange: 'opacity, transform',
+        maxWidth: '100%',
         ...style,
       }}
     >

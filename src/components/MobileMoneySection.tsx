@@ -274,6 +274,26 @@ export const MobileMoneySection: React.FC = () => {
             gap: 3.5rem;
           }
         }
+
+        @media (max-width: 600px) {
+          .android-wrapper {
+            perspective: none !important;
+            overflow: hidden !important;
+            width: 100% !important;
+            padding: 0.5rem 0 !important;
+          }
+          .android-device {
+            max-width: min(320px, 92vw) !important;
+            transform: none !important;
+            box-shadow: 0 12px 30px -6px rgba(15, 23, 42, 0.22) !important;
+          }
+          .android-shadow {
+            display: none !important;
+          }
+          .android-screen {
+            min-height: 540px !important;
+          }
+        }
       `}</style>
 
       <div className="mm-container">

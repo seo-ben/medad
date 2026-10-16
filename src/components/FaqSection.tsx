@@ -91,7 +91,10 @@ export const FaqSection: React.FC = () => {
       style={{ 
         backgroundColor: '#ffffff', 
         padding: '5rem 0 1.5rem 0',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden',
+        width: '100%',
+        maxWidth: '100%'
       }}
     >
       <style>{`

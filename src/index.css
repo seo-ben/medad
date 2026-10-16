@@ -98,14 +98,21 @@ html {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   padding: 0;
   width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-x: clip;
+  position: relative;
   background-color: var(--bg-light);
 }
 
@@ -120,6 +127,8 @@ body {
   border: none !important;
   display: flex !important;
   flex-direction: column !important;
+  overflow-x: hidden !important;
+  overflow-x: clip !important;
   background-color: var(--bg-light);
 }
 

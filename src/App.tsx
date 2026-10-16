@@ -37,7 +37,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-light)' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-light)', width: '100%', maxWidth: '100%', overflowX: 'clip' }}>
       {/* Navigation */}
       <Navbar
         onOpenAudio={() => setIsAudioOpen(true)}
@@ -45,7 +45,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content : Animations bidirectionnelles au scroll (montant & descendant) */}
-      <main style={{ flex: 1 }}>
+      <main style={{ flex: 1, width: '100%', maxWidth: '100%', overflowX: 'clip' }}>
         {/* 1. Hero Section (Accueil) */}
         <ScrollReveal direction="fade" distance={20}>
           <Hero

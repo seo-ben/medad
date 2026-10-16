@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin, Scale, Lock, HeartHandshake } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer style={{ background: '#072b1b', color: '#cbd5e1', paddingTop: '4.5rem', paddingBottom: '2.5rem', fontSize: '0.88rem' }}>
+    <footer style={{ background: '#072b1b', color: '#cbd5e1', paddingTop: '4.5rem', paddingBottom: '2.5rem', fontSize: '0.88rem', overflow: 'hidden', width: '100%', maxWidth: '100%' }}>
       <div className="container">
         
         {/* Grille Principale */}
@@ -169,7 +169,7 @@ export const Footer: React.FC = () => {
             © {new Date().getFullYear()} Medad Microfinance Togo. Tous droits réservés. Système Financier Décentralisé (SFD) enregistré.
           </div>
 
-          <div style={{ display: 'flex', gap: '1.25rem' }}>
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <span style={{ color: '#94a3b8' }}>Agrément CAS-IMEC / UEMOA</span>
             <span style={{ color: '#94a3b8' }}>Loi n° 2019-014 IPDCP</span>
             <span style={{ color: '#94a3b8' }}>Médiation OQSF-Togo</span>

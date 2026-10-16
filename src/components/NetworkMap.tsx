@@ -292,7 +292,10 @@ export const NetworkMap: React.FC = () => {
         padding: '6.5rem 0 6rem 0', 
         backgroundColor: '#faf8f5',
         position: 'relative',
-        borderTop: '1px solid #efe8df'
+        borderTop: '1px solid #efe8df',
+        overflow: 'hidden',
+        width: '100%',
+        maxWidth: '100%'
       }}
     >
       <style>{`
@@ -306,6 +309,8 @@ export const NetworkMap: React.FC = () => {
           max-width: 1240px;
           margin: 0 auto;
           padding: 0 1.5rem;
+          width: 100%;
+          overflow-x: clip;
         }
 
         /* Barre d'onglets horizontale pour les 7 zones */
