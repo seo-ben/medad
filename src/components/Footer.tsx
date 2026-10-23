@@ -44,32 +44,42 @@ export const Footer: React.FC = () => {
           {/* Colonne 2 : Produits & Services */}
           <div>
             <h4 style={{ fontSize: '1rem', color: '#ffffff', marginBottom: '1.25rem', fontWeight: 700 }}>
-              Nos Solutions
+              Nos Solutions Officielles
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
               <li>
-                <a href="#produits" style={{ color: '#cbd5e1', transition: 'color 0.2s' }}>
-                  Microcrédit de Trésorerie & Stocks
+                <a href="#catalogue" style={{ color: '#cbd5e1', transition: 'color 0.2s', textDecoration: 'none' }}>
+                  Crédit Ordinaire & Miawezon
                 </a>
               </li>
               <li>
-                <a href="#produits" style={{ color: '#cbd5e1', transition: 'color 0.2s' }}>
-                  Crédit d'Équipement Artisanal
+                <a href="#catalogue" style={{ color: '#cbd5e1', transition: 'color 0.2s', textDecoration: 'none' }}>
+                  Crédit Scolaire & Équipement
                 </a>
               </li>
               <li>
-                <a href="#tontine" style={{ color: '#cbd5e1', transition: 'color 0.2s' }}>
-                  Tontine Moderne Sécurisée (SMS)
+                <a href="#catalogue" style={{ color: '#cbd5e1', transition: 'color 0.2s', textDecoration: 'none' }}>
+                  Crédit Work and Pay & CLASS
                 </a>
               </li>
               <li>
-                <a href="#produits" style={{ color: '#cbd5e1', transition: 'color 0.2s' }}>
-                  Livret d'Épargne & Dépôt à Terme (DAT)
+                <a href="#catalogue" style={{ color: '#cbd5e1', transition: 'color 0.2s', textDecoration: 'none' }}>
+                  Épargne Tontine (Reçu SMS)
                 </a>
               </li>
               <li>
-                <a href="#simulateur" style={{ color: '#cbd5e1', transition: 'color 0.2s' }}>
-                  Simulateur d'Échéances Réglementaire
+                <a href="#catalogue" style={{ color: '#cbd5e1', transition: 'color 0.2s', textDecoration: 'none' }}>
+                  Épargne DAV & Dépôt à Terme (DAT)
+                </a>
+              </li>
+              <li>
+                <a href="#catalogue" style={{ color: '#cbd5e1', transition: 'color 0.2s', textDecoration: 'none' }}>
+                  Domiciliation Salaires & Groupements
+                </a>
+              </li>
+              <li>
+                <a href="#simulateur" style={{ color: 'var(--accent-gold)', fontWeight: 700, transition: 'color 0.2s', textDecoration: 'none' }}>
+                  Simulateur d'Échéances Réglementaire →
                 </a>
               </li>
             </ul>

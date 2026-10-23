@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ArrowRight, ArrowLeft, CheckCircle2, Smartphone, Send } from 'lucide-react';
 
 interface PreApprovalModalProps {
@@ -13,6 +13,7 @@ export const PreApprovalModal: React.FC<PreApprovalModalProps> = ({ isOpen, onCl
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   // Form State
+  const [selectedProduct, setSelectedProduct] = useState(initialData?.productId || 'credit-ordinaire');
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [district, setDistrict] = useState('Agoè Cacavéli');
@@ -20,6 +21,31 @@ export const PreApprovalModal: React.FC<PreApprovalModalProps> = ({ isOpen, onCl
   const [amount, setAmount] = useState(initialData?.amount ? String(initialData.amount) : '500000');
   const [mobileOperator, setMobileOperator] = useState<'mixx' | 'flooz'>('mixx');
   const [consentIPDCP, setConsentIPDCP] = useState(false); // Strictement NON pré-cochée selon la loi IPDCP
+
+  useEffect(() => {
+    if (initialData?.productId) {
+      setSelectedProduct(initialData.productId);
+    }
+    if (initialData?.amount) {
+      setAmount(String(initialData.amount));
+    }
+  }, [initialData]);
+
+  const productNamesMap: Record<string, string> = {
+    'credit-ordinaire': 'Crédit Ordinaire',
+    'credit-miawezon': 'Crédit Miawezon',
+    'credit-scolaire': 'Crédit Scolaire',
+    'credit-class': 'Crédit CLASS',
+    'credit-tontine': 'Crédit Tontine',
+    'credit-groupements': 'Crédit aux Groupements',
+    'credit-work-and-pay': 'Crédit Work and Pay',
+    'credit-decouverts': 'Crédits Découverts & d’Opportunité',
+    'epargne-tontine': 'Épargne Tontine',
+    'epargne-dav': 'Épargne DAV (Dépôt à Vue)',
+    'epargne-dat': 'Épargne DAT (Dépôt à Terme)',
+    'domiciliation-salaires': 'Domiciliation de Salaires',
+    'epargne-groupement': 'Épargne Groupement',
+  };
 
   if (!isOpen) return null;
 
@@ -175,6 +201,45 @@ export const PreApprovalModal: React.FC<PreApprovalModalProps> = ({ isOpen, onCl
                         fontSize: '0.9rem'
                       }}
                     />
+                  </div>
+
+                  {/* Choix du Produit Officiel Medad */}
+                  <div style={{ marginBottom: '1rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.35rem' }}>
+                      Produit / Formule Souhaitée *
+                    </label>
+                    <select
+                      value={selectedProduct}
+                      onChange={(e) => setSelectedProduct(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '0.75rem 1rem',
+                        borderRadius: '10px',
+                        border: '1.5px solid var(--primary)',
+                        fontSize: '0.9rem',
+                        background: '#f0fdf4',
+                        fontWeight: 700,
+                        color: 'var(--primary)'
+                      }}
+                    >
+                      <optgroup label="── NOS PRODUITS CRÉDITS ──">
+                        <option value="credit-ordinaire">Crédit Ordinaire (Stocks & Trésorerie)</option>
+                        <option value="credit-miawezon">Crédit Miawezon (Bienvenue)</option>
+                        <option value="credit-scolaire">Crédit Scolaire (Rentrée & Études)</option>
+                        <option value="credit-class">Crédit CLASS (PME & Professionnels)</option>
+                        <option value="credit-tontine">Crédit Tontine (Avances)</option>
+                        <option value="credit-groupements">Crédit aux Groupements (Solidaire)</option>
+                        <option value="credit-work-and-pay">Crédit Work and Pay (Motos / Outils)</option>
+                        <option value="credit-decouverts">Crédits Découverts & d’Opportunité</option>
+                      </optgroup>
+                      <optgroup label="── NOS PRODUITS ÉPARGNE ──">
+                        <option value="epargne-tontine">Épargne Tontine (Reçu SMS)</option>
+                        <option value="epargne-dav">Épargne DAV (Dépôt à Vue 24/7)</option>
+                        <option value="epargne-dat">Épargne DAT (Dépôt à Terme rémunéré)</option>
+                        <option value="domiciliation-salaires">Domiciliation de Salaires</option>
+                        <option value="epargne-groupement">Épargne Groupement (Collectif)</option>
+                      </optgroup>
+                    </select>
                   </div>
 
                   <div style={{ marginBottom: '1rem' }}>
@@ -403,6 +468,10 @@ export const PreApprovalModal: React.FC<PreApprovalModalProps> = ({ isOpen, onCl
                     marginBottom: '1.25rem',
                     fontSize: '0.85rem'
                   }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
+                      <span style={{ color: 'var(--text-muted)' }}>Produit demandé :</span>
+                      <strong style={{ color: 'var(--primary)' }}>{productNamesMap[selectedProduct] || selectedProduct}</strong>
+                    </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
                       <span style={{ color: 'var(--text-muted)' }}>Demandeur :</span>
                       <strong>{fullName}</strong>

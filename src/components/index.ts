@@ -13,3 +13,4 @@ export * from './FloatingWhatsApp';
 export * from './AudioPlayerModal';
 export * from './PreApprovalModal';
 export * from './MedadLogo';
+export * from './ScrollToTop';

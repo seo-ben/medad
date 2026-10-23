@@ -24,7 +24,7 @@ export const Testimonials: React.FC = () => {
     <section 
       id="temoignages"
       style={{ 
-        padding: '1.5rem 0 5rem 0', 
+        padding: '2rem 0 1.25rem 0', 
         background: '#ffffff',
         overflow: 'hidden',
         position: 'relative'
@@ -99,7 +99,7 @@ export const Testimonials: React.FC = () => {
           align-items: center;
           justify-content: center;
           gap: 1rem;
-          margin-top: 2rem;
+          margin-top: 1rem;
         }
 
         .control-btn {

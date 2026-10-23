@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { 
+  ArrowUpRight
+} from 'lucide-react';
+import { PRODUCTS as ALL_OFFICIAL_PRODUCTS } from '../data/content';
 
 /* ─── Props ──────────────────────────────────────────────────────────── */
 interface ProductsProps {
@@ -6,70 +10,70 @@ interface ProductsProps {
   onOpenPreApproval: (productId: string) => void;
 }
 
-/* ─── Données produits ───────────────────────────────────────────────── */
+/* ─── Données produits vitrine (Slider interactif) ───────────────────── */
 const PRODUCTS = [
   {
-    id: 'tresorerie',
-    label: 'Trésorerie',
+    id: 'credit-ordinaire',
+    label: 'Crédit Ordinaire',
     accent: '#c9e23a',
     image: '/3d-tresorerie.jpg',
     bigNum: '48',
     unit: 'h',
-    legend: 'pour recevoir votre argent',
-    headline: 'Financez vos stocks et ventes dès aujourd\'hui.',
-    description: 'Virement direct Mixx ou Flooz, sans paperasse ni garantie.',
+    legend: 'pour recevoir vos fonds',
+    headline: 'Financez vos stocks, commerces et fonds de roulement.',
+    description: 'Crédit Ordinaire & Crédit Miawezon : virement direct Mixx ou Flooz sous 48h, sans tracasseries.',
     infos: [
-      { val: '3\u202f000\u202f000\u00a0F', label: 'plafond' },
-      { val: '1,5\u00a0%/mois', label: 'taux' },
+      { val: '5\u202f000\u202f000\u00a0F', label: 'plafond max' },
+      { val: '1,5\u00a0%/mois', label: 'taux conforme UEMOA' },
       { val: '0\u00a0F', label: 'frais cachés' },
     ],
   },
   {
-    id: 'equipement',
-    label: 'Équipement',
+    id: 'credit-work-and-pay',
+    label: 'Work and Pay',
     accent: '#6cc4ff',
     image: '/3d-equipement.jpg',
     bigNum: '24',
     unit: '\u00a0mois',
-    legend: 'pour rembourser \u00e0 votre rythme',
-    headline: 'Modernisez votre atelier. Sans sacrifier votre trésorerie.',
-    description: 'Achetez le matériel qu\'il vous faut, avec un différé de remboursement.',
+    legend: 'pour financer votre outil',
+    headline: 'Motos, tricycles et ateliers payés par votre travail.',
+    description: 'Crédit Work and Pay & Équipement : matériel neuf dès le 1er jour, remboursé par votre production.',
     infos: [
-      { val: '5\u202f000\u202f000\u00a0F', label: 'montant maximum' },
-      { val: 'Différé', label: 'de remboursement' },
-      { val: 'Taux bonifié', label: 'conditions avantageuses' },
+      { val: '4\u202f500\u202f000\u00a0F', label: 'montant max' },
+      { val: 'Zemidjan / Fret', label: 'véhicules & outils' },
+      { val: 'Propriété', label: 'totale à terme' },
     ],
   },
   {
-    id: 'tontine',
-    label: 'Tontine',
+    id: 'epargne-tontine',
+    label: 'Épargne Tontine',
     accent: '#c39bff',
     image: '/artisan-craftsman.jpg',
     bigNum: '500',
     unit: '\u00a0F/jour',
-    legend: 'pour commencer',
-    headline: 'La tontine que vous connaissez, avec la sécurité en plus.',
-    description: 'Chaque cotisation vous vaut un SMS de confirmation automatique.',
+    legend: 'pour commencer à cotiser',
+    headline: 'La tontine moderne avec reçu SMS et Crédit Tontine.',
+    description: 'Chaque dépôt quotidien est certifié par SMS instantané et vous ouvre un accès prioritaire au crédit.',
     infos: [
-      { val: '100\u00a0%', label: 'sécurisé' },
-      { val: 'SMS', label: 'reçu automatique' },
-      { val: '3\u00a0mois', label: 'pour accéder au crédit' },
+      { val: '100\u00a0%', label: 'sécurisé CAS-IMEC' },
+      { val: 'SMS', label: 'quittance instantanée' },
+      { val: 'Crédit Tontine', label: 'accès accéléré' },
     ],
   },
   {
-    id: 'epargne',
-    label: 'Épargne',
+    id: 'epargne-dat',
+    label: 'Épargne & DAT',
     accent: '#ffc94d',
     image: '/hero-african-entrepreneur.jpg',
     bigNum: '5\u202f000',
     unit: '\u00a0F',
     legend: 'pour ouvrir votre compte',
-    headline: 'Faites travailler votre argent. En toute sécurité.',
-    description: 'Épargnez de 3 \u00e0 12 mois, avec la protection de la BCEAO.',
+    headline: 'Dépôts à Vue (DAV) et Dépôts à Terme (DAT) rémunérés.',
+    description: 'Faites fructifier vos réserves et domiciliez vos salaires en toute sécurité sous réglementation BCEAO.',
     infos: [
-      { val: '3\u201312\u00a0mois', label: 'de durée' },
-      { val: 'CAS-IMEC', label: 'tutelle' },
-      { val: 'BCEAO', label: 'protection' },
+      { val: 'DAV & DAT', label: 'formules souples' },
+      { val: 'Taux bonifié', label: 'intérêts contractuels' },
+      { val: 'Salaires', label: 'domiciliation possible' },
     ],
   },
 ] as const;
@@ -82,6 +86,28 @@ export const Products: React.FC<ProductsProps> = ({ onSelectProduct: _onSelectPr
   const [activeIndex, setActiveIndex]   = useState(0);
   const [contentKey, setContentKey]     = useState(0);   // force re-mount pour animation
   const [showScrollHint, setShowScrollHint] = useState(true);
+
+  // Helper méta-données courtes pour les 13 solutions (style capture utilisateur)
+  const getProductMeta = useCallback((id: string, category: string, amountRange: string) => {
+    switch (id) {
+      case 'credit-scolaire': return 'Rentrée · Écoles & Fournitures';
+      case 'credit-miawezon': return 'Bienvenue · Sans caution lourde';
+      case 'credit-class': return 'Commerçants · Renfort de stock';
+      case 'credit-ordinaire': return 'Fonds de roulement · Trésorerie';
+      case 'credit-tontine': return 'Sous 48h · Lié à votre tontine';
+      case 'credit-groupements': return 'Caution solidaire · Taux bonifié';
+      case 'credit-work-and-pay': return 'Motos & Ateliers · Propriété';
+      case 'credit-decouverts': return 'Dépannage express · Flotte & Caisse';
+      case 'epargne-tontine': return 'Dès 500 F/j · Quittance SMS';
+      case 'epargne-dav': return 'Dépôt à vue · Retraits libres';
+      case 'epargne-dat': return 'Dépôt à terme · Intérêts bonifiés';
+      case 'epargne-domiciliation-salaires': return 'Salariés · Avances & découverts';
+      case 'epargne-groupement': return 'Groupements · Projets collectifs';
+      default: return category === 'credit' ? amountRange : 'Épargne sécurisée';
+    }
+  }, []);
+
+
 
   const product = PRODUCTS[activeIndex];
 
@@ -490,8 +516,229 @@ export const Products: React.FC<ProductsProps> = ({ onSelectProduct: _onSelectPr
         </div>
       </div>
 
+      {/* ── Catalogue Officiel Exhaustif (Design Liste Élégante Médad) ─────── */}
+      <section 
+        id="catalogue" 
+        style={{ 
+          backgroundColor: '#fbfcfd',
+          padding: '3rem 0 1rem 0',
+          borderTop: '1px solid #edf2f7',
+          position: 'relative',
+          zIndex: 2
+        }}
+      >
+        <div className="container" style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
+          
+          <div className="solutions-layout" style={{
+            display: 'grid',
+            gridTemplateColumns: 'clamp(280px, 32%, 360px) 1fr',
+            gap: 'clamp(2rem, 5vw, 4.5rem)',
+            alignItems: 'start'
+          }}>
+
+            {/* ── Colonne Gauche (Titre & Navigation collante) ─────────────── */}
+            <div className="solutions-left" style={{ position: 'sticky', top: '100px' }}>
+              
+              <h2 style={{
+                fontFamily: 'var(--font-heading, "Outfit", sans-serif)',
+                fontSize: 'clamp(2.2rem, 3.4vw, 3rem)',
+                fontWeight: 800,
+                color: '#0f172a',
+                letterSpacing: '-0.035em',
+                lineHeight: 1.15,
+                margin: 0,
+                marginBottom: '1rem'
+              }}>
+                Services & Domaines<br />d'intervention
+              </h2>
+
+              <p style={{
+                fontSize: '0.98rem',
+                color: '#64748b',
+                lineHeight: 1.6,
+                margin: 0,
+                marginBottom: '1.75rem'
+              }}>
+                De l’épargne journalière sécurisée au financement de vos équipements et stocks commerciaux.
+              </p>
+
+              {/* Lien souligné style capture utilisateur */}
+              <div>
+                <a 
+                  href="#simulateur"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    color: '#0f172a',
+                    fontWeight: 800,
+                    fontSize: '1rem',
+                    textDecoration: 'none',
+                    borderBottom: '2.5px solid #ea580c', // Souligné orange distinctif
+                    paddingBottom: '4px',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#ea580c'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = '#0f172a'; }}
+                >
+                  <span>Discuter d'un projet</span>
+                  <ArrowUpRight size={17} />
+                </a>
+              </div>
+
+            </div>
+
+            {/* ── Colonne Droite (Cartes empilables au défilement : 2 se dépose sur 1, 3 sur 2...) ──── */}
+            <div 
+              className="solutions-list" 
+              style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                position: 'relative',
+                paddingBottom: '1.5rem'
+              }}
+            >
+              {ALL_OFFICIAL_PRODUCTS.map((p, index) => {
+                const num = String(index + 1).padStart(2, '0');
+                const metaText = getProductMeta(p.id, p.category, p.amountRange);
+
+                return (
+                  <div
+                    key={p.id}
+                    onClick={() => onOpenPreApproval(p.id)}
+                    className="solution-item-row"
+                    style={{
+                      position: 'sticky',
+                      top: `calc(clamp(80px, 9vh, 100px) + ${index} * clamp(9px, 1.2vw, 14px))`,
+                      zIndex: index + 1,
+                      backgroundColor: '#ffffff',
+                      borderRadius: '18px',
+                      padding: '1.35rem 1.75rem',
+                      border: '1px solid #edf2f7',
+                      boxShadow: '0 -2px 10px rgba(15, 23, 42, 0.02), 0 8px 24px rgba(15, 23, 42, 0.06)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: '1.25rem',
+                      cursor: 'pointer',
+                      marginBottom: '1.5rem',
+                      transition: 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease'
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.borderColor = '#065f46';
+                      e.currentTarget.style.boxShadow = '0 -4px 16px rgba(6, 95, 70, 0.08), 0 16px 36px rgba(6, 95, 70, 0.12)';
+                      const arrow = e.currentTarget.querySelector('.item-arrow') as HTMLElement;
+                      if (arrow) {
+                        arrow.style.color = '#065f46';
+                        arrow.style.transform = 'translate(2px, -2px)';
+                      }
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.borderColor = '#edf2f7';
+                      e.currentTarget.style.boxShadow = '0 -2px 10px rgba(15, 23, 42, 0.02), 0 8px 24px rgba(15, 23, 42, 0.06)';
+                      const arrow = e.currentTarget.querySelector('.item-arrow') as HTMLElement;
+                      if (arrow) {
+                        arrow.style.color = '#94a3b8';
+                        arrow.style.transform = 'translate(0, 0)';
+                      }
+                    }}
+                  >
+                    {/* Numéro 01, 02, 03... */}
+                    <div style={{
+                      fontSize: '0.95rem',
+                      fontWeight: 800,
+                      color: '#64748b',
+                      letterSpacing: '0.02em',
+                      minWidth: '28px',
+                      flexShrink: 0
+                    }}>
+                      {num}
+                    </div>
+
+                    {/* Bloc Titre & Sous-titre */}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{
+                        fontFamily: 'var(--font-heading, "Outfit", sans-serif)',
+                        fontSize: '1.15rem',
+                        fontWeight: 800,
+                        color: '#0f172a',
+                        letterSpacing: '-0.02em',
+                        lineHeight: 1.25,
+                        marginBottom: '0.25rem'
+                      }}>
+                        {p.title}
+                      </div>
+
+                      <div style={{
+                        fontSize: '0.86rem',
+                        color: '#64748b',
+                        lineHeight: 1.4,
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                      }}>
+                        {p.tagline}
+                      </div>
+                    </div>
+
+                    {/* Meta tags + Flèche ↗ */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '1.25rem',
+                      flexShrink: 0
+                    }}>
+                      <span className="row-meta-badge" style={{
+                        fontSize: '0.82rem',
+                        color: '#64748b',
+                        fontWeight: 500,
+                        letterSpacing: '0.01em'
+                      }}>
+                        {metaText}
+                      </span>
+
+                      <div 
+                        className="item-arrow"
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#94a3b8',
+                          transition: 'all 0.2s ease'
+                        }}
+                      >
+                        <ArrowUpRight size={18} />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
       {/* ── Mobile + responsive styles ─────────────────────────────── */}
       <style>{`
+        @media (max-width: 899px) {
+          .solutions-layout {
+            grid-template-columns: 1fr !important;
+            gap: 2.5rem !important;
+          }
+          .solutions-left {
+            position: relative !important;
+            top: 0 !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .row-meta-badge {
+            display: none !important;
+          }
+        }
         @media (max-width: 820px) {
           .prod-grid {
             grid-template-columns: 1fr !important;

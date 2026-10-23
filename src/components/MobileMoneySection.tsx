@@ -20,7 +20,7 @@ export const MobileMoneySection: React.FC = () => {
     <section 
       id="mobile-money" 
       style={{ 
-        padding: '7.5rem 0 6.5rem 0', 
+        padding: '2.75rem 0 2.25rem 0', 
         backgroundColor: '#faf8f5', 
         color: '#0f241d',
         position: 'relative',
@@ -42,7 +42,7 @@ export const MobileMoneySection: React.FC = () => {
           grid-template-columns: 1.1fr 0.9fr;
           gap: 4rem;
           align-items: center;
-          margin-bottom: 5rem;
+          margin-bottom: 2.5rem;
         }
 
         /* Conteneur 3D avec perspective */

@@ -14,96 +14,306 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
+  // ── NOS PRODUITS CRÉDITS ──────────────────────────────────────────
   {
-    id: 'tresorerie',
-    title: 'Microcrédit de Trésorerie',
-    tagline: 'Fonds de roulement & stock pour commerçants',
+    id: 'credit-ordinaire',
+    title: 'Crédit Ordinaire',
+    tagline: 'Fonds de roulement, stocks et investissement commercial',
     category: 'credit',
-    targetAudience: 'Commerçantes de marché, revendeurs, demi-grossistes (Agoè, Adidogomé, Grand Marché...)',
-    amountRange: '50 000 à 3 000 000 F CFA',
-    duration: '3 à 12 mois (échéances hebdomadaires ou mensuelles)',
-    rateInfo: 'Taux plafonné < 21% l\'an (strictement conforme BCEAO, usure max 24%)',
+    targetAudience: 'Commerçants, demi-grossistes, détaillants et micro-entrepreneurs du Grand Lomé',
+    amountRange: '100 000 à 5 000 000 F CFA',
+    duration: '3 à 18 mois (échéances hebdomadaires ou mensuelles)',
+    rateInfo: 'Taux légal garanti < 21% l\'an (strictement conforme BCEAO, usure max 24%)',
     features: [
-      'Déblocage express sous 48h après instruction',
-      'Versement direct sur compte Mixx ou Moov Money',
-      'Zéro frais dissimulés ou commission surprise',
-      'Accompagnement par un conseiller commercial dédié'
+      'Déblocage express sous 48h sur compte Mixx ou Moov Money',
+      'Échéancier transparent sans frais cachés ni commissions imprévues',
+      'Accompagnement par un conseiller de crédit attitré',
+      'Renouvellement rapide avec augmentation de plafond pour clients assidus'
     ],
     documents: [
-      'Pièce d\'identité valide (CNI, Carte d\'électeur ou e-ID biométrique)',
+      'Pièce d\'identité valide (CNI, Passeport, Carte d\'électeur ou e-ID)',
       'Preuve d\'activité commerciale ou localisation de l\'étal/boutique',
       'Caution solidaire ou garantie adaptée'
     ],
-    ctaLabel: 'Simuler ce crédit',
-    color: '#0b5e39'
+    ctaLabel: 'Demander un Crédit Ordinaire',
+    color: '#065f46'
   },
   {
-    id: 'equipement',
-    title: 'Crédit Équipement Artisanal',
-    tagline: 'Modernisez vos machines, outils et ateliers',
+    id: 'credit-miawezon',
+    title: 'Crédit Miawezon',
+    tagline: 'Le crédit de bienvenue pour bien démarrer chez Medad',
     category: 'credit',
-    targetAudience: 'Artisans, mécaniciens, menuisiers, couturiers, transformateurs agroalimentaires',
-    amountRange: '200 000 à 5 000 000 F CFA',
-    duration: '6 à 24 mois avec différé possible',
-    rateInfo: 'Taux bonifié de développement artisanal (conforme BCEAO)',
+    targetAudience: 'Nouveaux adhérents, petits revendeurs de proximité, marchandes d\'étal',
+    amountRange: '50 000 à 500 000 F CFA',
+    duration: '2 à 6 mois',
+    rateInfo: 'Conditions d\'amorçage très douces et formalités simplifiées',
     features: [
-      'Financement direct d\'équipements neufs ou reconditionnés',
-      'Amortissement adapté au cycle de production',
-      'Possibilité de co-financement avec fournisseurs partenaires',
-      'Renforcement de votre capacité de production locale'
+      'Idéal pour un premier accès au microcrédit sans historique préalable',
+      'Instruction accélérée sur le lieu de vente par nos agents de zone',
+      'Déblocage direct sur portefeuille mobile',
+      'Étape tremplin vers les lignes de financement supérieures'
     ],
     documents: [
       'Pièce d\'identité officielle',
-      'Devis proforma de l\'équipement ciblé',
-      'Carnet d\'artisan ou attestation de qualification professionnelle'
+      'Numéro de téléphone mobile actif',
+      'Localisation de l\'activité à Agoè, Adidogomé ou marchés de Lomé'
     ],
-    ctaLabel: 'Demander un devis',
+    ctaLabel: 'Souscrire au Crédit Miawezon',
+    color: '#047857'
+  },
+  {
+    id: 'credit-scolaire',
+    title: 'Crédit Scolaire',
+    tagline: 'Assurez la scolarité et l\'avenir de vos enfants sans stress',
+    category: 'credit',
+    targetAudience: 'Parents d\'élèves, commerçantes, artisans et salariés du Grand Lomé',
+    amountRange: '50 000 à 1 500 000 F CFA',
+    duration: '3 à 10 mois (calqué sur le calendrier académique)',
+    rateInfo: 'Taux social préférentiel d\'appui éducatif',
+    features: [
+      'Financement direct des frais de scolarité, tenues et manuels',
+      'Paiement possible directement aux établissements scolaires',
+      'Mensualités réduites adaptées à vos cycles de trésorerie',
+      'Déblocage d\'urgence pour éviter toute interruption de cours'
+    ],
+    documents: [
+      'Pièce d\'identité du souscripteur',
+      'Attestation de scolarité, certificat d\'inscription ou reçu de scolarité',
+      'Justificatif d\'activité ou bulletin de salaire'
+    ],
+    ctaLabel: 'Simuler le Crédit Scolaire',
+    color: '#1d4ed8'
+  },
+  {
+    id: 'credit-class',
+    title: 'Crédit CLASS',
+    tagline: 'Ligne de crédit structurée pour professionnels et PME',
+    category: 'credit',
+    targetAudience: 'Commerces formalisés, ateliers structurés, grossistes et prestataires de services',
+    amountRange: '500 000 à 10 000 000 F CFA',
+    duration: '6 à 24 mois avec possibilité de différé partiel',
+    rateInfo: 'Taux corporate bonifié développement UEMOA',
+    features: [
+      'Étude personnalisée de votre cycle d\'exploitation',
+      'Ligne de trésorerie renouvelable selon vos commandes',
+      'Conseiller financier entreprise dédié à votre établissement',
+      'Suivi de conformité et optimisation de gestion'
+    ],
+    documents: [
+      'Registre de commerce (RCCM) ou carte d\'opérateur économique',
+      'Pièce d\'identité des gérants et justificatifs de bilans ou cahier de caisse',
+      'Garantie matérielle, nantissement ou caution solvable'
+    ],
+    ctaLabel: 'Découvrir le Crédit CLASS',
+    color: '#0f766e'
+  },
+  {
+    id: 'credit-tontine',
+    title: 'Crédit Tontine',
+    tagline: 'Avance de trésorerie adossée à vos versements réguliers',
+    category: 'credit',
+    targetAudience: 'Cotisants actifs à la Tontine Sécurisée Medad',
+    amountRange: 'Jusqu\'à 3x le volume moyen de cotisation mensuelle',
+    duration: '1 à 6 mois',
+    rateInfo: 'Taux ultra-préférentiel réservé aux épargnants assidus',
+    features: [
+      'Aucune garantie hypothécaire exigée : vos cotisations vous cautionnent',
+      'Décaissement immédiat sous 24h sur validation de votre historique',
+      'Remboursement fluide combiné aux passages de l\'agent collecteur',
+      'Accompagnement continu pour maintenir votre capital'
+    ],
+    documents: [
+      'Compte tontine actif chez Medad depuis au moins 2 mois',
+      'Pièce d\'identité officielle',
+      'Numéro de téléphone récepteur des SMS de quittance'
+    ],
+    ctaLabel: 'Demander un Crédit Tontine',
+    color: '#c59b27'
+  },
+  {
+    id: 'credit-groupements',
+    title: 'Crédit aux Groupements',
+    tagline: 'Financement solidaire pour coopératives et associations féminines',
+    category: 'credit',
+    targetAudience: 'Groupements de femmes commerçantes, associations de quartier, coopératives d\'artisans',
+    amountRange: '200 000 à 8 000 000 F CFA par groupe',
+    duration: '3 à 12 mois',
+    rateInfo: 'Taux solidaire dégressif UEMOA',
+    features: [
+      'Cautionnement solidaire mutuel entre membres du groupement',
+      'Distribution équitable des fonds selon les besoins de chaque adhérente',
+      'Séances gratuites d\'éducation financière collective',
+      'Passage d\'un agent de suivi lors des réunions périodiques du groupe'
+    ],
+    documents: [
+      'Statuts ou règlement intérieur du groupement (ou PV de réunion)',
+      'Liste des membres avec pièces d\'identité respectives',
+      'Engagement conjoint des responsables (présidente, secrétaire, trésorière)'
+    ],
+    ctaLabel: 'Financer notre Groupement',
+    color: '#854d0e'
+  },
+  {
+    id: 'credit-work-and-pay',
+    title: 'Crédit Work and Pay',
+    tagline: 'Vos équipements et véhicules remboursés par leur propre rendement',
+    category: 'credit',
+    targetAudience: 'Conducteurs de taxi-motos (Zemidjan), tricycles de livraison, mécaniciens, menuisiers',
+    amountRange: '300 000 à 4 500 000 F CFA',
+    duration: '6 à 24 mois (versements quotidiens ou hebdomadaires)',
+    rateInfo: 'Barème leasing solidaire sans pénalité de remboursement anticipé',
+    features: [
+      'Acquisition directe de motos, tricycles de fret, machines-outils neuves',
+      'Droit d\'exploitation immédiat pour générer du revenu dès le 1er jour',
+      'Transfert de propriété intégrale dès la dernière échéance honorée',
+      'Assurance et assistance incluses avec nos partenaires concessionnaires'
+    ],
+    documents: [
+      'Pièce d\'identité et permis de conduire (pour véhicules)',
+      'Justificatif de domicile à Lomé (plan ou quittance CEET/TdE)',
+      'Caution morale d\'un tiers de confiance'
+    ],
+    ctaLabel: 'Postuler au Work and Pay',
     color: '#b45309'
   },
   {
-    id: 'tontine',
-    title: 'Tontine Moderne Sécurisée',
-    tagline: 'L\'épargne quotidienne digitalisée avec reçu SMS',
-    category: 'tontine',
-    targetAudience: 'Revendeuses ambulantes, commerces de quartier, marchands quotidiens',
-    amountRange: 'À partir de 500 F CFA / jour',
-    duration: 'Cycles mensuels renouvelables ou épargne à terme',
-    rateInfo: '0% de risque de perte • Sécurisation intégrale',
+    id: 'credit-decouverts',
+    title: 'Crédits Découverts & d’Opportunité',
+    tagline: 'Facilité de caisse urgente pour ne rater aucun arrivage de marchandise',
+    category: 'credit',
+    targetAudience: 'Commerçants et artisans face à une opportunité d\'achat ou décalage de trésorerie',
+    amountRange: '50 000 à 2 000 000 F CFA',
+    duration: '15 à 60 jours',
+    rateInfo: 'Frais clairs calculés au prorata temporis',
     features: [
-      'Passage quotidien d\'un agent collecteur Medad certifié',
-      'Notification SMS instantanée confirmant chaque versement',
-      'Fin définitive des carnets papier égarés ou contestés',
-      'Accès prioritaire à un microcrédit après 3 mois réguliers'
+      'Déblocage express sous 24h pour saisir un stock à prix bradé',
+      'Remboursement dès l\'encaissement des ventes de la marchandise',
+      'Sécurise votre relation avec vos grossistes et fournisseurs',
+      'Disponible en continu pour les clients ayant un compte actif'
     ],
     documents: [
-      'Numéro de téléphone mobile actif (YAS ou Moov)',
-      'Pièce d\'identité ou certificat de résidence'
+      'Compte actif ou historique de ventes vérifiable',
+      'Pièce d\'identité valide',
+      'Justificatif de l\'opportunité ou bon de commande fournisseur'
     ],
-    ctaLabel: 'Adhérer à la Tontine',
+    ctaLabel: 'Demander un Découvert d\'Urgence',
+    color: '#991b1b'
+  },
+
+  // ── NOS PRODUITS ÉPARGNE ──────────────────────────────────────────
+  {
+    id: 'epargne-tontine',
+    title: 'Épargne Tontine',
+    tagline: 'La collecte journalière digitalisée avec reçu SMS instantané',
+    category: 'epargne',
+    targetAudience: 'Revendeuses ambulantes, commerces de quartier, marchands quotidiens et artisans',
+    amountRange: 'À partir de 500 F CFA / jour',
+    duration: 'Cycles mensuels renouvelables ou épargne à terme',
+    rateInfo: '0% de risque de perte • Sécurisation intégrale CAS-IMEC',
+    features: [
+      'Passage quotidien d\'un agent collecteur Medad accrédité à votre étal',
+      'SMS instantané confirmant chaque franc déposé sur votre compte',
+      'Fin définitive des carnets manuscrits égarés ou contestés',
+      'Ouvre droit en priorité à nos crédits de trésorerie'
+    ],
+    documents: [
+      'Numéro de téléphone mobile actif (YAS Mixx ou Moov)',
+      'Pièce d\'identité ou carte d\'électeur'
+    ],
+    ctaLabel: 'Adhérer à la Tontine Medad',
     color: '#0284c7'
   },
   {
-    id: 'epargne',
-    title: 'Épargne Rémunérée & DAT',
-    tagline: 'Faites fructifier vos réserves en toute sérénité',
+    id: 'epargne-dav',
+    title: 'Épargne DAV (Dépôt à Vue)',
+    tagline: 'Votre compte courant d\'épargne disponible à tout moment',
     category: 'epargne',
-    targetAudience: 'Ménages, micro-entrepreneurs formalisés, salariés et tontiniers',
+    targetAudience: 'Particuliers, salariés, artisans, commerçants et ménages',
     amountRange: 'Ouverture dès 5 000 F CFA',
-    duration: 'Libre (vue) ou Dépôt à Terme (DAT de 3 à 12 mois)',
-    rateInfo: 'Intérêts créditeurs garantis et réglementés',
+    duration: 'Libre, sans engagement de durée',
+    rateInfo: 'Disponibilité immédiate des fonds, zéro frais d\'agios abusifs',
     features: [
-      'Fonds protégés sous surveillance prudentielle CAS-IMEC',
-      'Disponibilité rapide de vos fonds en agence ou Mobile Money',
-      'Relevé électronique transparent et régulier',
-      'Pas de frais de tenue de compte abusifs'
+      'Dépôts et retraits libres aux guichets de nos agences ou par Mobile Money',
+      'Relevé de compte clair et transparent à la demande',
+      'Interfaçage direct avec Mixx (TMoney) et Flooz pour gérer vos fonds 24/7',
+      'Sécurité totale des avoirs sous supervision prudentielle UEMOA'
     ],
     documents: [
-      'Pièce d\'identité officielle',
+      'Pièce d\'identité officielle valide',
       '2 photos d\'identité récentes',
       'Plan de localisation ou facture CEET/TdE'
     ],
-    ctaLabel: 'Ouvrir un compte',
+    ctaLabel: 'Ouvrir un Compte DAV',
     color: '#0d9488'
+  },
+  {
+    id: 'epargne-dat',
+    title: 'Épargne DAT (Dépôt à Terme)',
+    tagline: 'Faites fructifier votre capital avec un taux d\'intérêt garanti',
+    category: 'epargne',
+    targetAudience: 'Épargnants prévoyants, entrepreneurs et commerçants ayant une réserve de trésorerie',
+    amountRange: 'À partir de 50 000 F CFA',
+    duration: '3, 6, 12 ou 24 mois bloqués au choix',
+    rateInfo: 'Rémunération contractuelle bonifiée et réglementée',
+    features: [
+      'Délivrance d\'un certificat de dépôt officiel attestant le capital et les intérêts',
+      'Rendement garanti à l\'échéance sans risque de fluctuation',
+      'Possibilité de nantissement pour obtenir un crédit sans débloquer l\'épargne',
+      'Renouvellement automatique ou virement sur compte mobile à l\'échéance'
+    ],
+    documents: [
+      'Pièce d\'identité officielle',
+      'Formulaire de souscription de DAT complété en agence',
+      'Versement initial par virement, espèces ou Mobile Money'
+    ],
+    ctaLabel: 'Souscrire un Dépôt à Terme',
+    color: '#047857'
+  },
+  {
+    id: 'domiciliation-salaires',
+    title: 'Domiciliation de Salaires',
+    tagline: 'Recevez votre rémunération en toute sérénité et accédez au crédit',
+    category: 'epargne',
+    targetAudience: 'Salariés du secteur privé, fonctionnaires, contractuels et employés d\'entreprises',
+    amountRange: 'Dès le premier virement de paie',
+    duration: 'Permanente',
+    rateInfo: 'Frais de tenue de compte très économiques',
+    features: [
+      'Alerte SMS immédiate lors de la réception de votre salaire',
+      'Facilité d\'avance sur salaire jusqu\'à 50% avant la fin du mois',
+      'Accès prioritaire aux crédits scolaires et d\'équipement',
+      'Attestation bancaire et relevé de compte certifié'
+    ],
+    documents: [
+      'Pièce d\'identité officielle valide',
+      'Attestation de travail ou contrat d\'engagement',
+      '3 derniers bulletins de paie et lettre d\'engagement de l\'employeur'
+    ],
+    ctaLabel: 'Domicilier mon Salaire',
+    color: '#4338ca'
+  },
+  {
+    id: 'epargne-groupement',
+    title: 'Épargne Groupement',
+    tagline: 'Gestion sécurisée et transparente pour associations et tontines collectives',
+    category: 'epargne',
+    targetAudience: 'Associations de commerçants, groupements féminins, mutuelles communautaires',
+    amountRange: 'Dépôt initial dès 10 000 F CFA',
+    duration: 'Cycle annuel ou pluri-annuel',
+    rateInfo: 'Taux bonifié spécial compte collectif',
+    features: [
+      'Système de co-signature sécurisé (présidente, trésorière, secrétaire)',
+      'Reçus électroniques envoyés aux gestionnaires du groupement',
+      'Rapprochement comptable simplifié pour vos assemblées générales',
+      'Ouvre droit au Crédit aux Groupements de Medad'
+    ],
+    documents: [
+      'Statuts ou PV de constitution du groupement',
+      'Pièces d\'identité des mandataires désignés',
+      'Spécimens de signature des représentantes officielles'
+    ],
+    ctaLabel: 'Ouvrir un Compte Groupement',
+    color: '#6b21a8'
   }
 ];
 

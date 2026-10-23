@@ -51,7 +51,7 @@ export const ContactSection: React.FC = () => {
     <section
       id="contact"
       style={{
-        padding: '6rem 0',
+        padding: '2.5rem 0',
         backgroundColor: '#faf8f5',
         position: 'relative',
         borderTop: '1px solid #efe8df',
@@ -64,7 +64,7 @@ export const ContactSection: React.FC = () => {
         
         {/* Titre Principal sans aucun label au-dessus */}
         <ScrollReveal direction="down" distance={25}>
-          <div style={{ maxWidth: '750px', marginBottom: '3.5rem' }}>
+          <div style={{ maxWidth: '750px', marginBottom: '2rem' }}>
             <h2
               style={{
                 fontFamily: "'Bricolage Grotesque', 'Outfit', sans-serif",

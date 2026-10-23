@@ -11,7 +11,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenPreApproval })
     <section
       id="apropos"
       style={{
-        padding: '5.5rem 0',
+        padding: '2.5rem 0',
         backgroundColor: '#ffffff',
         position: 'relative',
         borderTop: '1px solid #f1f5f9',

@@ -12,6 +12,7 @@ import {
   ScrollReveal,
   Footer,
   FloatingWhatsApp,
+  ScrollToTop,
   AudioPlayerModal,
   PreApprovalModal
 } from './components';
@@ -84,6 +85,9 @@ export const App: React.FC = () => {
 
       {/* Bouton Flottant WhatsApp Fixe (+228 97 31 78 25) */}
       <FloatingWhatsApp />
+
+      {/* Bouton de remontée fluide en haut de page */}
+      <ScrollToTop />
 
       {/* Modale d'Écoute Multimodale (Mina, Éwé, Français) */}
       <AudioPlayerModal

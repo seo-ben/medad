@@ -90,7 +90,7 @@ export const FaqSection: React.FC = () => {
       id="faq" 
       style={{ 
         backgroundColor: '#ffffff', 
-        padding: '5rem 0 1.5rem 0',
+        padding: '1.5rem 0 2.5rem 0',
         position: 'relative',
         overflow: 'hidden',
         width: '100%',
@@ -106,7 +106,7 @@ export const FaqSection: React.FC = () => {
 
         .faq-header {
           text-align: center;
-          margin-bottom: 3.5rem;
+          margin-bottom: 2rem;
         }
 
         .faq-title {
@@ -131,7 +131,7 @@ export const FaqSection: React.FC = () => {
         .faq-search-box {
           position: relative;
           max-width: 580px;
-          margin: 2.5rem auto 2rem auto;
+          margin: 1.75rem auto 1.5rem auto;
         }
 
         .faq-search-input {

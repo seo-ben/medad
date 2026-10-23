@@ -289,7 +289,7 @@ export const NetworkMap: React.FC = () => {
     <section 
       id="agences" 
       style={{ 
-        padding: '6.5rem 0 6rem 0', 
+        padding: '2.5rem 0 2.5rem 0', 
         backgroundColor: '#faf8f5',
         position: 'relative',
         borderTop: '1px solid #efe8df',
