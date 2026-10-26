@@ -78,9 +78,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#simulateur" style={{ color: 'var(--accent-gold)', fontWeight: 700, transition: 'color 0.2s', textDecoration: 'none' }}>
-                  Simulateur d'Échéances Réglementaire →
-                </a>
+                
               </li>
             </ul>
           </div>
