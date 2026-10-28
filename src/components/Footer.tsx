@@ -91,38 +91,39 @@ export const Footer: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.84rem' }}>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <MapPin size={18} color="var(--accent-gold)" style={{ flexShrink: 0, marginTop: '2px' }} />
-                <span>Bd. Faure Gnassingbé (face ex-restaurant 20/20, à côté de la Maison Royale), Agoè-Cacavéli, 06 BP 61390 Lomé</span>
+                <span>Agoè-Cacavéli, non loin du siège Bâtir, 06 BP 61390 Lomé</span>
               </div>
 
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <Phone size={18} color="#34d399" style={{ flexShrink: 0, marginTop: '2px' }} />
                 <div>
                   <div>
-                    <a href="tel:+22897317825" style={{ color: '#ffffff', fontWeight: 700 }}>
-                      +228 97 31 78 25
+                    <a href="tel:+22870453559" style={{ color: '#ffffff', fontWeight: 700 }}>
+                      +228 70 45 35 59
                     </a>
-                    <span style={{ color: '#94a3b8', fontSize: '0.78rem' }}> (WhatsApp / Mobile)</span>
+                    <span style={{ color: '#94a3b8', fontSize: '0.78rem' }}> (WhatsApp / Siège)</span>
                   </div>
                   <div style={{ marginTop: '0.2rem' }}>
                     <a href="tel:+22823353559" style={{ color: '#cbd5e1', fontWeight: 600 }}>
                       +228 23 35 35 59
                     </a>
                     <span style={{ color: '#94a3b8', fontSize: '0.78rem' }}> (Fixe)</span>
-                    <span style={{ color: '#64748b' }}> • </span>
-                    <a href="tel:+22870453555" style={{ color: '#cbd5e1', fontWeight: 600 }}>
-                      +228 70 45 35 55
-                    </a>
                   </div>
                 </div>
               </div>
 
               <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <Mail size={18} color="#60a5fa" style={{ flexShrink: 0, marginTop: '2px' }} />
-                <span>contact@medadmicrofinance-tg.com</span>
+                <a href="mailto:contact@medadmicrofinance.com" style={{ color: '#cbd5e1', textDecoration: 'none' }}>
+                  contact@medadmicrofinance.com
+                </a>
               </div>
 
-              <div style={{ marginTop: '0.5rem', color: '#94a3b8' }}>
-                Couverture : Agoè-Cacavéli, Vakpossito, Zanguéra, Legbassito, Adidogomé, Kégué, Attiégou, Hédzranawoé.
+              <div style={{ marginTop: '0.5rem', color: '#94a3b8', lineHeight: 1.55 }}>
+                <strong style={{ color: '#e2e8f0' }}>Nos points de services :</strong><br />
+                • Legbassito (Derrière le marché Légbassimé) : (+228) 70 44 50 76<br />
+                • Zanguera Klikamé (En face du CEG) : (+228) 70 68 80 80<br />
+                • Point de collecte Kégué (Route de Kpatcha, non loin de SOMAYAF) : +228 93 62 61 09
               </div>
             </div>
           </div>

@@ -458,7 +458,7 @@ export const FinancialEducation: React.FC = () => {
             {/* Bouton direct vers un conseiller WhatsApp */}
             <div style={{ marginTop: '2rem' }}>
               <a
-                href={`https://wa.me/22897317825?text=Bonjour%20Medad,%20je%20souhaite%20un%20conseil%20pratique%20sur%20:%20${encodeURIComponent(current.title)}`}
+                href={`https://wa.me/22870453559?text=Bonjour%20Medad,%20je%20souhaite%20un%20conseil%20pratique%20sur%20:%20${encodeURIComponent(current.title)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fed-action-btn"

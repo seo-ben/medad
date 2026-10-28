@@ -282,13 +282,10 @@ export const PreApprovalModal: React.FC<PreApprovalModalProps> = ({ isOpen, onCl
                         background: '#ffffff'
                       }}
                     >
-                      <option value="Agoè Cacavéli">Agoè Cacavéli (Siège)</option>
-                      <option value="Adidogomé">Adidogomé (Assiyéyé)</option>
-                      <option value="Vakpossito">Vakpossito</option>
-                      <option value="Zanguera">Zanguera</option>
-                      <option value="Legbassito">Legbassito</option>
-                      <option value="Kégué - Attiégou">Kégué - Attiégou</option>
-                      <option value="Hédzranawoé">Hédzranawoé</option>
+                      <option value="Agoè Cacavéli">Agoè Cacavéli (Siège - non loin du siège Bâtir)</option>
+                      <option value="Legbassito">Legbassito (Derrière le marché Légbassimé)</option>
+                      <option value="Zanguera Klikamé">Zanguera Klikamé (En face du CEG)</option>
+                      <option value="Kégué">Kégué (Route de Kpatcha, non loin de SOMAYAF)</option>
                       <option value="Autre quartier du Grand Lomé">Autre quartier du Grand Lomé</option>
                     </select>
                   </div>
@@ -585,7 +582,7 @@ export const PreApprovalModal: React.FC<PreApprovalModalProps> = ({ isOpen, onCl
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                 <a
-                  href={`https://wa.me/22897317825?text=Bonjour%20Medad%20Microfinance,%20je%20viens%20de%20soumettre%20une%20demande%20de%20pr%C3%A9-approbation%20pour%20${encodeURIComponent(fullName)}%20(${encodeURIComponent(amount)}%20F%20CFA)%20pour%20la%20zone%20de%20${encodeURIComponent(district)}`}
+                  href={`https://wa.me/22870453559?text=Bonjour%20Medad%20Microfinance,%20je%20viens%20de%20soumettre%20une%20demande%20de%20pr%C3%A9-approbation%20pour%20${encodeURIComponent(fullName)}%20(${encodeURIComponent(amount)}%20F%20CFA)%20pour%20la%20zone%20de%20${encodeURIComponent(district)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{

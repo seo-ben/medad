@@ -40,7 +40,7 @@ export const FloatingWhatsApp: React.FC = () => {
           gap: '0.6rem',
           maxWidth: '250px'
         }}>
-          <span>Discuter avec un conseiller Medad à Lomé (+228 97 31 78 25)</span>
+          <span>Discuter avec un conseiller Medad à Lomé (+228 70 45 35 59)</span>
           <button
             type="button"
             onClick={() => setShowTooltip(false)}
@@ -60,7 +60,7 @@ export const FloatingWhatsApp: React.FC = () => {
       )}
 
       <a
-        href="https://wa.me/22897317825?text=Bonjour%20Medad%20Microfinance,%20je%20souhaite%20des%20informations%20sur%20vos%20services"
+        href="https://wa.me/22870453559?text=Bonjour%20Medad%20Microfinance,%20je%20souhaite%20des%20informations%20sur%20vos%20services"
         target="_blank"
         rel="noopener noreferrer"
         onMouseEnter={() => setShowTooltip(true)}

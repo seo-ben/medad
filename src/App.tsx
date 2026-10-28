@@ -83,7 +83,7 @@ export const App: React.FC = () => {
       {/* Footer Institutionnel & Mentions Légales */}
       <Footer />
 
-      {/* Bouton Flottant WhatsApp Fixe (+228 97 31 78 25) */}
+      {/* Bouton Flottant WhatsApp Fixe (+228 70 45 35 59) */}
       <FloatingWhatsApp />
 
       {/* Bouton de remontée fluide en haut de page */}

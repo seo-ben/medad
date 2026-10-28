@@ -39,7 +39,7 @@ export const ContactSection: React.FC = () => {
       "_Message envoyé depuis le site web Medad Microfinance_"
     ].filter(Boolean).join("\n");
 
-    const whatsappUrl = `https://wa.me/22897317825?text=${encodeURIComponent(messageLines)}`;
+    const whatsappUrl = `https://wa.me/22870453559?text=${encodeURIComponent(messageLines)}`;
     setLastWhatsappUrl(whatsappUrl);
     setIsSubmitted(true);
 
@@ -135,8 +135,7 @@ export const ContactSection: React.FC = () => {
                     Siège & Agence Principale
                   </h3>
                   <p style={{ fontSize: '0.94rem', color: '#475569', margin: 0, lineHeight: 1.6 }}>
-                    Boulevard Faure Gnassingbé, Agoè Cacavéli<br />
-                    (Face à l'ex-restaurant 20/20, à côté de la maison royale)<br />
+                    Agoè Cacavéli, non loin du siège Bâtir<br />
                     <strong>06 BP 61390 Lomé, Togo</strong>
                   </p>
                 </div>
@@ -187,11 +186,14 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#0f241d', margin: '0 0 0.4rem 0' }}>
-                    Lignes Directes
+                    Lignes Directes & Points de Services
                   </h3>
-                  <p style={{ fontSize: '0.94rem', color: '#475569', margin: 0, lineHeight: 1.6 }}>
+                  <p style={{ fontSize: '0.94rem', color: '#475569', margin: 0, lineHeight: 1.65 }}>
+                    WhatsApp / Siège : <a href="tel:+22870453559" style={{ color: '#065f46', fontWeight: 700, textDecoration: 'none' }}>+228 70 45 35 59</a><br />
                     Fixe : <a href="tel:+22823353559" style={{ color: '#065f46', fontWeight: 700, textDecoration: 'none' }}>+228 23 35 35 59</a><br />
-                    Mobile / Agence : <a href="tel:+22870453555" style={{ color: '#065f46', fontWeight: 700, textDecoration: 'none' }}>+228 70 45 35 55</a>
+                    Legbassito : <a href="tel:+22870445076" style={{ color: '#065f46', fontWeight: 700, textDecoration: 'none' }}>(+228) 70 44 50 76</a><br />
+                    Zanguera Klikamé : <a href="tel:+22870688080" style={{ color: '#065f46', fontWeight: 700, textDecoration: 'none' }}>(+228) 70 68 80 80</a><br />
+                    Point de collecte Kégué : <a href="tel:+22893626109" style={{ color: '#065f46', fontWeight: 700, textDecoration: 'none' }}>+228 93 62 61 09</a>
                   </p>
                 </div>
               </div>
@@ -199,7 +201,7 @@ export const ContactSection: React.FC = () => {
 
             {/* Bouton d'Assistance WhatsApp Officiel */}
             <a
-              href="https://wa.me/22897317825"
+              href="https://wa.me/22870453559"
               target="_blank"
               rel="noopener noreferrer"
               style={{

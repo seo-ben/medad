@@ -506,7 +506,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenPreApproval }) => 
               </button>
 
               <a
-                href="https://wa.me/22897317825"
+                href="https://wa.me/22870453559"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hiw-secondary-btn"

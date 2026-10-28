@@ -330,52 +330,31 @@ export const AGENCIES: Agency[] = [
   {
     name: 'Siège Central & Agence Principale',
     district: 'Agoè Cacavéli',
-    address: 'Boulevard Faure Gnassingbé, Immeuble Medad, Agoè Cacavéli',
-    phone: '+228 97 31 78 25',
+    address: 'Agoè Cacavéli, non loin du siège Bâtir, Lomé',
+    phone: '+228 70 45 35 59',
     isHeadquarter: true,
     hours: 'Lun - Ven : 07h30 - 17h30 | Sam : 08h00 - 12h30'
   },
   {
-    name: 'Point d\'Appui Vakpossito',
-    district: 'Vakpossito',
-    address: 'Près du grand marché de Vakpossito, carrefour central',
-    phone: '+228 97 31 78 25',
-    hours: 'Lun - Ven : 08h00 - 17h00 | Sam : 08h00 - 12h00'
-  },
-  {
-    name: 'Point d\'Appui Zanguera',
-    district: 'Zanguera',
-    address: 'Route Nationale N°5, en face du marché artisanal',
-    phone: '+228 97 31 78 25',
-    hours: 'Lun - Ven : 08h00 - 17h00'
-  },
-  {
-    name: 'Antenne Legbassito',
+    name: 'Point de Service Legbassito',
     district: 'Legbassito',
-    address: 'Carrefour Legbassito, axe commercial principal',
-    phone: '+228 97 31 78 25',
+    address: 'Derrière le marché Légbassimé',
+    phone: '(+228) 70 44 50 76',
     hours: 'Lun - Ven : 08h00 - 17h00'
   },
   {
-    name: 'Agence Adidogomé',
-    district: 'Adidogomé',
-    address: 'Non loin du marché d\'Adidogomé Assiyéyé',
-    phone: '+228 97 31 78 25',
-    hours: 'Lun - Ven : 07h30 - 17h30 | Sam : 08h00 - 13h00'
-  },
-  {
-    name: 'Antenne Kégué & Attiégou',
-    district: 'Kégué - Attiégou',
-    address: 'Zone Stade de Kégué, axe vers Attiégou',
-    phone: '+228 97 31 78 25',
+    name: 'Point de Service Zanguera Klikamé',
+    district: 'Zanguera Klikamé',
+    address: 'En face du CEG',
+    phone: '(+228) 70 68 80 80',
     hours: 'Lun - Ven : 08h00 - 17h00'
   },
   {
-    name: 'Point Conseil Hédzranawoé',
-    district: 'Hédzranawoé',
-    address: 'À proximité du marché de friperie d\'Hédzranawoé',
-    phone: '+228 97 31 78 25',
-    hours: 'Lun - Ven : 08h00 - 17h00 | Sam : 08h00 - 12h30'
+    name: 'Point de Collecte Kégué',
+    district: 'Kégué',
+    address: 'Sur la route de Kpatcha, non loin de SOMAYAF',
+    phone: '+228 93 62 61 09',
+    hours: 'Lun - Ven : 08h00 - 17h00'
   }
 ];
 

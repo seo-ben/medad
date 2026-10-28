@@ -44,7 +44,7 @@ const FAQ_DATA: FaqItem[] = [
     id: '6',
     category: 'general',
     question: "Où se trouvent les agences Medad à Lomé ?",
-    answer: "Notre siège et agence principale sont situés à Agoè Cacavéli (Boulevard Faure Gnassingbé). Nous disposons également de points d'appui et antennes à Vakpossito, Zanguera, Legbassito, Adidogomé Assiyéyé, Kégué-Attiégou et Hédzranawoé."
+    answer: "Notre siège et agence principale sont situés à Agoè Cacavéli (non loin du siège Bâtir). Nous disposons également de points de services à Legbassito (derrière le marché Légbassimé, Tél : (+228) 70 44 50 76), à Zanguera Klikamé (en face du CEG, Tél : (+228) 70 68 80 80) et d'un point de collecte à Kégué (sur la route de Kpatcha, non loin de SOMAYAF, Tél : +228 93 62 61 09)."
   },
   {
     id: '7',
@@ -418,7 +418,7 @@ export const FaqSection: React.FC = () => {
             </p>
             <div className="faq-support-actions">
               <a
-                href="https://wa.me/22897317825?text=Bonjour%20Medad,%20j%27ai%20une%20question%20sur%20vos%20services"
+                href="https://wa.me/22870453559?text=Bonjour%20Medad,%20j%27ai%20une%20question%20sur%20vos%20services"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="faq-btn-wa"
@@ -426,9 +426,9 @@ export const FaqSection: React.FC = () => {
                 <MessageSquare size={17} />
                 <span>Poser ma question sur WhatsApp</span>
               </a>
-              <a href="tel:+22897317825" className="faq-btn-tel">
+              <a href="tel:+22870453559" className="faq-btn-tel">
                 <PhoneCall size={17} />
-                <span>Appeler le +228 97 31 78 25</span>
+                <span>Appeler le +228 70 45 35 59</span>
               </a>
             </div>
           </div>
